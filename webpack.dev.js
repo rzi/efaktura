@@ -6,8 +6,7 @@ module.exports = merge(common, {
   mode: "development",
 
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.s[ac]ss$/i,
         loader: [
           "style-loader",
@@ -42,6 +41,6 @@ module.exports = merge(common, {
 
   devServer: {
     port: 8080,
-    host: '0.0.0.0'
+    host: 'localhost'
   },
 });

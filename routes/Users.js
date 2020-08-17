@@ -1,10 +1,10 @@
-const express = require('express')
-const users = express.Router()
-const cors = require('cors')
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
-const User = require('../models/User')
-users.use(cors())
+const express = require("express");
+const users = express.Router();
+const cors = require("cors");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const User = require("../models/User");
+users.use(cors());
 
 process.env.SECRET_KEY = "secret";
 
@@ -51,31 +51,21 @@ users.post("/register", (req, res) => {
 });
 
 users.post("/login", (req, res) => {
-  console.log("jestem w login")
+  console.log("jestem w login");
   User.findOne({
     where: {
       email: req.body.email,
     },
-  })
-    .then((user) => {
-      if (user) {
-        if (bcrypt.compareSync(req.body.password, user.password)) {
-          let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
-            expiresIn: 1440,
-          });
-          res.send(token);
-        }
-      } else {
-        res.status(400).json({
-          error: "User does not exist",
-        });
-      }
-    })
-    .catch((err) => {
-      res.status(400).json({
-        error: err,
+  }).then((user) => {
+    if (user && bcrypt.compareSync(req.body.password, user.password)) {
+      let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
+        expiresIn: 1440,
       });
-    });
+      res.send(token);
+    } else {
+      res.send({ msg: "Błędny użytkownik lub hasło" });
+    }
+  });
 });
 
 users.get("/profile", (req, res) => {

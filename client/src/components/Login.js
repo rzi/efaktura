@@ -74,7 +74,7 @@ class Login extends Component {
               </button>
             </form>
             <br />
-            <h4 id="msg"> test</h4>
+            <h4 id="msg"> </h4>
           </div>
         </div>
       </div>

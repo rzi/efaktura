@@ -4,6 +4,7 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
+const { emailer } = require("../server/emailer");
 users.use(cors());
 
 process.env.SECRET_KEY = "secret";
@@ -31,8 +32,11 @@ users.post("/register", (req, res) => {
           userData.password = hash;
           User.create(userData)
             .then((user) => {
+              // send email for authoirsation
+              //console.log("emailer : " + emailer);
+              var emailerMsg = emailer("rzi@vp.pl");
               res.json({
-                status: user.email + "Registered!",
+                status: user.email + " Registered!" + emailerMsg,
               });
             })
             .catch((err) => {
@@ -40,9 +44,7 @@ users.post("/register", (req, res) => {
             });
         });
       } else {
-        res.json({
-          error: "User already exists",
-        });
+        res.send({ msg: "Użytkownik już istnieje" });
       }
     })
     .catch((err) => {

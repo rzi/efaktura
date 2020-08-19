@@ -24,7 +24,13 @@ module.exports = db.sequelize.define(
     created: {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
-    }
+    },
+    verification: {
+      type: Sequelize.STRING
+    },
+    active: {
+      type: Sequelize.STRING
+    },
   },
   {
     timestamps: false

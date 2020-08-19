@@ -43,6 +43,8 @@ class Register extends Component {
       } else {
         document.getElementById("msg").textContent =
           "Proces rejestracji zakończony. Przejdź do logowania!";
+         
+
       }
     });
   }

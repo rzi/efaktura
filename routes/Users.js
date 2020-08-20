@@ -10,9 +10,9 @@ const nodemailer = require("nodemailer");
 process.env.SECRET_KEY = "secret";
 
 users.post("/register", (req, res) => {
-   let emailMSG;
-   var email= req.body.email;
-   var randomValue = Math.floor(Math.random() * 10000000 + 1);
+  let emailMSG;
+  var email = req.body.email;
+  var randomValue = Math.floor(Math.random() * 10000000 + 1);
   console.log("jestem w post register " + email);
   const today = new Date();
   const userData = {
@@ -22,8 +22,7 @@ users.post("/register", (req, res) => {
     password: req.body.password,
     created: today,
     verification: randomValue,
-    active : "true",
-
+    active: "true",
   };
 
   User.findOne({
@@ -48,14 +47,14 @@ users.post("/register", (req, res) => {
                 },
                 //debug: true, // show debug output
                 logger: true, // log information in console
-              });            
+              });
               transporter.verify(function (error, success) {
                 if (error) {
                   console.log(error);
                 } else {
                   console.log("Server is ready to take our messages");
                 }
-              });            
+              });
               var mailOption = {
                 from: "efaktura@rzi.ct8.pl", // sender this is your email here
                 to: `${email}`, // receiver email2
@@ -63,18 +62,21 @@ users.post("/register", (req, res) => {
                 html: `<h1>Cześć, kliknij na link <h1><br><p> Link aktywacyjny.</p>
                   <br><a href="http://localhost:3000/verification/?verify=${randomValue}&email=${email}">Kliknij aby aktywować twoje konto w serwisie efaktura.ct8.pl</a>`,
               };
-              transporter.sendMail(mailOption , function (error, info) {   
+              transporter.sendMail(mailOption, function (error, info) {
                 emailMSG = info.response;
-                console.log("emailMSG "+ emailMSG);
+                console.log("emailMSG " + emailMSG);
                 if (error) {
                   console.log(error);
-                  return 
-                }  
-                console.log('Email sent: ' + info.response);  
-                res.send({ "msg": "Email z linkiem do autoryzacji wysłany na twoją skrzynke pocztową" });        
-              });              
+                  return;
+                }
+                console.log("Email sent: " + info.response);
+                res.send({
+                  msg:
+                    "Email z linkiem do autoryzacji wysłany na twoją skrzynke pocztową",
+                });
+              });
             })
-            
+
             .catch((err) => {
               res.send("error: " + err);
             });
@@ -130,6 +132,8 @@ users.get("/profile", (req, res) => {
 });
 
 users.get("/verification", (req, res) => {
-  res.send("User verification")
+  const randomValue = req.body.verify;
+  console.log("randomValue " + randomValue);
+  res.send("User verification");
 });
 module.exports = users;

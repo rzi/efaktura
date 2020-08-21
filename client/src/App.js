@@ -6,7 +6,7 @@ import Landing from './components/Landing'
 import Login from './components/Login'
 import Register from './components/Register'
 import Profile from './components/Profile'
-
+import Verification from './components/Verification.js'
 class App extends Component {
   render() {
     return (
@@ -18,6 +18,7 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/profile" component={Profile} />
+            <Route exact path="/verification" component={Verification} />
           </div>
         </div>
       </Router>

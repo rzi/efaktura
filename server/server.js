@@ -15,6 +15,11 @@ app.use(
 var Users = require('../routes/Users')
 
 app.use('/users', Users)
+// app.get("/", (req, res) => {
+
+//   console.log("jestem w /");
+//   res.send("User /");
+// });
 
 app.listen(port, function() {
   console.log('Server is running on port: ' + port)

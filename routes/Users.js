@@ -108,6 +108,10 @@ users.post("/login", (req, res) => {
   });
 });
 
+users.get("/login", (req, res) => {
+  console.log("jestem w login");
+});
+
 users.get("/profile", (req, res) => {
   var decoded = jwt.verify(
     req.headers["authorization"],
@@ -135,5 +139,12 @@ users.get("/verification", (req, res) => {
   const randomValue = req.body.verify;
   console.log("randomValue " + randomValue);
   res.send("User verification");
+});
+
+users.get("/", (req, res) => {
+  const randomValue = req.body.verify;
+  console.log("randomValue " + randomValue);
+  res.send("User /");
+  console.log("jestem w /");
 });
 module.exports = users;

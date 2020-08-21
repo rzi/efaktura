@@ -136,15 +136,11 @@ users.get("/profile", (req, res) => {
 });
 
 users.get("/verification", (req, res) => {
-  const randomValue = req.body.verify;
-  console.log("randomValue " + randomValue);
+  console.log("User verification");
+
+  console.log("req: " + req.body.verif);
+  console.log("req: " + req.body.email);
   res.send("User verification");
 });
 
-users.get("/", (req, res) => {
-  const randomValue = req.body.verify;
-  console.log("randomValue " + randomValue);
-  res.send("User /");
-  console.log("jestem w /");
-});
 module.exports = users;

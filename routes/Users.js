@@ -22,7 +22,7 @@ users.post("/register", (req, res) => {
     password: req.body.password,
     created: today,
     verification: randomValue,
-    active: "true",
+    active: "false",
   };
 
   User.findOne({
@@ -137,10 +137,34 @@ users.get("/profile", (req, res) => {
 
 users.get("/verification", (req, res) => {
   console.log("User verification");
-
   console.log("req: " + req.body.verif);
   console.log("req: " + req.body.email);
   res.send("User verification");
 });
 
+users.post("/verification", (req, res) => {
+  console.log("User verification post ");
+  console.log("req: " + req.body.verify);
+  console.log("req: " + req.body.email);
+  User.findOne({
+    where: {
+      email: req.body.email,
+    },
+  })
+    //TODO bcrypt
+    .then((user) => {
+      if (user.verification === req.body.verify) {
+        console.log(" set active to true ");
+        User.update({ active: "true" }, { where: { email: req.body.email } })
+          .then((result) => {
+            console.log("data was Updated");
+            //res.redirect('/');
+          })
+          .catch((err) => {
+            console.log("Error : ", err);
+          });
+      }
+    });
+  res.json({"msg": "zakończona pomyślnie"});
+});
 module.exports = users;

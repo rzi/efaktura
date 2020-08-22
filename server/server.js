@@ -13,7 +13,6 @@ app.use(
 );
 
 var Users = require("../routes/Users");
-
 app.use("/users", Users);
 
 app.listen(port, function () {

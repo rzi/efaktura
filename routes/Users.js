@@ -91,16 +91,22 @@ users.post("/login", (req, res) => {
   User.findOne({
     where: {
       email: req.body.email,
+      
     },
   }).then((user) => {
-    if (user && bcrypt.compareSync(req.body.password, user.password)) {
-      let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
-        expiresIn: 1440,
-      });
-      res.send(token);
-    } else {
-      res.send({ msg: "Błędny użytkownik lub hasło" });
-    }
+    console.log("user.active "+user.active)
+    if (user.active == "true"){
+      if (user && bcrypt.compareSync(req.body.password, user.password)) {
+        let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
+          expiresIn: 1440,
+        });
+        res.send(token);
+      } else {
+        res.send({ msg: "Błędny użytkownik/hasło lub konto nie aktywowane" });
+      }
+    } else{
+      res.send({ msg: "Błędny użytkownik/hasło lub konto nie aktywowane" });
+    }   
   });
 });
 
@@ -131,8 +137,32 @@ users.get("/profile", (req, res) => {
 });
 
 users.get("/verification", (req, res) => {
-  res.send("User verification");
+	console.log("req.body.email "+req.body.email)
+  User.findOne({
+    where: {
+      email: req.query.email,
+    },
+  })
+    //TODO bcrypt
+    .then((user) => {
+		console.log("user.verification "+user.verification);
+		console.log("req.query.verify "+req.query.verify);
+      if (user.verification == req.query.verify) {
+        User.update({ active: "true" }, { where: { email: req.query.email } })
+          .then((result) => {
+            console.log("data was Updated");
+            //res.redirect('/');
+          })
+          .catch((err) => {
+            console.log("Error : ", err);
+          });
+      } else {
+        res.json({"msg": "zły numer weryfikacyjny" });
+      }
+    });
+//res.json({"msg": "zakończona pomyślnie" });
 });
+
 
 users.post("/verification", (req, res) => {
   User.findOne({
@@ -142,7 +172,7 @@ users.post("/verification", (req, res) => {
   })
     //TODO bcrypt
     .then((user) => {
-      if (user.verification === req.body.verify) {
+      if (user.verification == req.body.verify) {
         User.update({ active: "true" }, { where: { email: req.body.email } })
           .then((result) => {
             console.log("data was Updated");

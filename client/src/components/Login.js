@@ -26,7 +26,7 @@ class Login extends Component {
 
     login(user).then((res) => {
       document.getElementById("msg").textContent = res.msg;
-      if (res.msg ==="Błędny użytkownik lub hasło") {
+      if (res.msg ==="Błędny użytkownik/hasło lub konto nie aktywowane") {
         localStorage.removeItem("usertoken");
         this.props.history.push(`/login`);
       } else {

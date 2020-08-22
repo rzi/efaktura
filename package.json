@@ -1,7 +1,7 @@
 {
-  "name": "wtf-webpack-starterkit",
+  "name": "efaktura",
   "version": "1.0.1",
-  "description": "WTF Webpack starterkit",
+  "description": "efaktura",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
@@ -22,7 +22,7 @@
     "passport",
     "express"
   ],
-  "author": "Maciek Korsan",
+  "author": "RZI",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.10.1",

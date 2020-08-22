@@ -9,7 +9,7 @@ export const register = (newUser) => {
       password: newUser.password,
     })
     .then((response) => {
-      console.log("Registered");
+      console.log("Zarejestrowany");
       return response.data;
     });
 };
@@ -22,7 +22,6 @@ export const login = (user) => {
     })
     .then((response) => {
       localStorage.setItem("usertoken", response.data);
-      console.log("response.data: " + response.data);
       return response.data;
     })
     .catch((err) => {

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { login } from "./UserFunctions";
-
 class Login extends Component {
   constructor() {
     super();
@@ -27,9 +26,8 @@ class Login extends Component {
 
     login(user).then((res) => {
       document.getElementById("msg").textContent = res.msg;
-      console.log("res.msg: " + res.msg);
-      if (res.msg) {
-        console.log("reditect to login");
+      if (res.msg ==="Błędny użytkownik lub hasło") {
+        localStorage.removeItem("usertoken");
         this.props.history.push(`/login`);
       } else {
         this.props.history.push(`/profile`);
@@ -43,25 +41,25 @@ class Login extends Component {
         <div className="row">
           <div className="col-md-6 mt-5 mx-auto">
             <form noValidate onSubmit={this.onSubmit}>
-              <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+              <h1 className="h3 mb-3 font-weight-normal">Logowanie</h1>
               <div className="form-group">
-                <label htmlFor="email">Email address</label>
+                <label htmlFor="email">Podaj adres email</label>
                 <input
                   type="email"
                   className="form-control"
                   name="email"
-                  placeholder="Enter email"
+                  placeholder="email"
                   value={this.state.email}
                   onChange={this.onChange}
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">Hasło</label>
                 <input
                   type="password"
                   className="form-control"
                   name="password"
-                  placeholder="Password"
+                  placeholder="hasło"
                   value={this.state.password}
                   onChange={this.onChange}
                 />
@@ -70,7 +68,7 @@ class Login extends Component {
                 type="submit"
                 className="btn btn-lg btn-primary btn-block"
               >
-                Sign in
+                Zaloguj!
               </button>
             </form>
             <br />

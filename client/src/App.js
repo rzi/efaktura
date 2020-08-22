@@ -7,6 +7,8 @@ import Login from './components/Login'
 import Register from './components/Register'
 import Profile from './components/Profile'
 import Verification from './components/Verification.js'
+import Invoice from './components/Invoice.js'
+import Admin from './components/Admin.js'
 class App extends Component {
   render() {
     return (
@@ -19,6 +21,8 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/verification" component={Verification} />
+            <Route exact path="/invoice" component={Invoice} />
+            <Route exact path="/admin" component={Admin} />
           </div>
         </div>
       </Router>

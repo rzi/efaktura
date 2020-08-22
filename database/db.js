@@ -18,9 +18,9 @@ db.Sequelize = Sequelize
 sequelize
   .authenticate()
   .then(function(err) {
-    console.log('Connection has been established successfully.');
+    console.log('Nawiązane połączenie z bazą danych.');
   })
   .catch(function (err) {
-    console.log('Unable to connect to the database:', err);
+    console.log('Brak połączenia z bazą danych:', err);
   });
 module.exports = db

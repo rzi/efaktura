@@ -13,7 +13,6 @@ users.post("/register", (req, res) => {
   let emailMSG;
   var email = req.body.email;
   var randomValue = Math.floor(Math.random() * 10000000 + 1);
-  console.log("jestem w post register " + email);
   const today = new Date();
   const userData = {
     first_name: req.body.first_name,
@@ -52,7 +51,7 @@ users.post("/register", (req, res) => {
                 if (error) {
                   console.log(error);
                 } else {
-                  console.log("Server is ready to take our messages");
+                  console.log("Serwer gotowy na wysłnie emaila");
                 }
               });
               var mailOption = {
@@ -63,8 +62,6 @@ users.post("/register", (req, res) => {
                   <br><a href="http://localhost:3000/verification/?verify=${randomValue}&email=${email}">Kliknij aby aktywować twoje konto w serwisie efaktura.ct8.pl</a>`,
               };
               transporter.sendMail(mailOption, function (error, info) {
-                emailMSG = info.response;
-                console.log("emailMSG " + emailMSG);
                 if (error) {
                   console.log(error);
                   return;
@@ -72,7 +69,7 @@ users.post("/register", (req, res) => {
                 console.log("Email sent: " + info.response);
                 res.send({
                   msg:
-                    "Email z linkiem do autoryzacji wysłany na twoją skrzynke pocztową",
+                    "Email z linkiem do autoryzacji wysłany na twoją skrzynkę pocztową",
                 });
               });
             })
@@ -91,7 +88,6 @@ users.post("/register", (req, res) => {
 });
 
 users.post("/login", (req, res) => {
-  console.log("jestem w login");
   User.findOne({
     where: {
       email: req.body.email,
@@ -109,7 +105,6 @@ users.post("/login", (req, res) => {
 });
 
 users.get("/login", (req, res) => {
-  console.log("jestem w login");
 });
 
 users.get("/profile", (req, res) => {
@@ -127,7 +122,7 @@ users.get("/profile", (req, res) => {
       if (user) {
         res.json(user);
       } else {
-        res.send("User does not exist");
+        res.send("Użytkownik nie istnieje");
       }
     })
     .catch((err) => {
@@ -136,16 +131,10 @@ users.get("/profile", (req, res) => {
 });
 
 users.get("/verification", (req, res) => {
-  console.log("User verification");
-  console.log("req: " + req.body.verif);
-  console.log("req: " + req.body.email);
   res.send("User verification");
 });
 
 users.post("/verification", (req, res) => {
-  console.log("User verification post ");
-  console.log("req: " + req.body.verify);
-  console.log("req: " + req.body.email);
   User.findOne({
     where: {
       email: req.body.email,
@@ -154,7 +143,6 @@ users.post("/verification", (req, res) => {
     //TODO bcrypt
     .then((user) => {
       if (user.verification === req.body.verify) {
-        console.log(" set active to true ");
         User.update({ active: "true" }, { where: { email: req.body.email } })
           .then((result) => {
             console.log("data was Updated");

@@ -7,15 +7,13 @@ class Landing extends Component {
         <div className="jumbotron mt-5">
           <div className="col-sm-8 mx-auto">
             <h2 className="text-center">
-              Witaj w efaktura napisana w technologji React+Express+MSQL
+              Witaj w efaktura, która napisana jest w technologji React + Express + MySQL
             </h2>
-            <p>
               <ol>
                 <li>Zarejestruj się</li>
                 <li>Aktywuj konto przez email</li>
                 <li>Zaloguj się</li>
               </ol>
-            </p>
           </div>
         </div>
       </div>

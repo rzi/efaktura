@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-
-import Navbar from './components/Navbar'
-import Landing from './components/Landing'
-import Login from './components/Login'
-import Register from './components/Register'
-import Profile from './components/Profile'
-import Verification from './components/Verification.js'
-import Invoice from './components/Invoice.js'
-import Admin from './components/Admin.js'
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Landing from "./components/Landing";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Profile from "./components/Profile";
+import Verification from "./components/Verification.js";
+import Invoice from "./components/Invoice.js";
+import Admin from "./components/Admin.js";
+import Reset from "./components/Reset.js";
 class App extends Component {
   render() {
     return (
@@ -23,11 +23,11 @@ class App extends Component {
             <Route exact path="/verification" component={Verification} />
             <Route exact path="/invoice" component={Invoice} />
             <Route exact path="/admin" component={Admin} />
+            <Route exact path="/reset" component={Reset} />
           </div>
         </div>
       </Router>
-    )
+    );
   }
 }
-
-export default App
+export default App;

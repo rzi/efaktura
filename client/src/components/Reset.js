@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { login } from "./UserFunctions";
-class Login extends Component {
+import { reset } from "./UserFunctions";
+class Reset extends Component {
   constructor() {
     super();
     this.state = {
       email: "",
-      password: "",
       errors: {},
     };
 
@@ -21,27 +20,31 @@ class Login extends Component {
 
     const user = {
       email: this.state.email,
-      password: this.state.password,
     };
 
-    login(user).then((res) => {
+    reset(user).then((res) => {
       document.getElementById("msg").textContent = res.msg;
-      if (res.msg === "Błędny użytkownik/hasło lub konto nie aktywowane") {
-        localStorage.removeItem("usertoken");
-        this.props.history.push(`/login`);
-      } else {
-        this.props.history.push(`/profile`);
-      }
+      // if (res.msg === "Błędny użytkownik/hasło lub konto nie aktywowane") {
+      //   localStorage.removeItem("usertoken");
+      //   this.props.history.push(`/login`);
+      // } else {
+      //   this.props.history.push(`/profile`);
+      // }
     });
   }
+  componentDidMount() {
+    console.log("jestem w did mount " + this.props.match.params.email);
+    this.setState.email = "dddd";
 
+    // document.getElementsByName("email").value = "this.props.match.params.email";
+  }
   render() {
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-6 mt-5 mx-auto">
             <form noValidate onSubmit={this.onSubmit}>
-              <h1 className="h3 mb-3 font-weight-normal">Logowanie</h1>
+              <h1 className="h3 mb-3 font-weight-normal">Reset hasła</h1>
               <div className="form-group">
                 <label htmlFor="email">Podaj adres email</label>
                 <input
@@ -53,33 +56,20 @@ class Login extends Component {
                   onChange={this.onChange}
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="password">Hasło</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  placeholder="hasło"
-                  value={this.state.password}
-                  onChange={this.onChange}
-                />
-              </div>
+
               <button
                 type="submit"
                 className="btn btn-lg btn-primary btn-block"
               >
-                Zaloguj!
+                Reset
               </button>
             </form>
             <br />
             <p>
-              Zapomniałeś hasło? zresetuj
-              <a href={`http://localhost:3000/reset?email=${this.state.email}`}>
-                {" "}
-                tutaj
-              </a>
+              Po nacisnięciu reset, link do zmiany hasła zostanie wysłany na
+              twoją skrzynkę pocztową
             </p>
-            {/* <a href={`https:/${linkVariable}`}>This Is A Dynamic Link</a> */}
+
             <br />
             <h4 id="msg"> </h4>
           </div>
@@ -89,4 +79,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Reset;

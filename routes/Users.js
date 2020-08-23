@@ -185,4 +185,72 @@ users.post("/verification", (req, res) => {
     });
   res.json({"msg": "zakończona pomyślnie"});
 });
+
+users.post("/reset", (req, res) => {
+
+  var email = req.body.email;
+  var randomValue = Math.floor(Math.random() * 10000000 + 1);
+  const today = new Date();
+  const userData = {
+    email: req.body.email,
+  };
+
+  User.findOne({
+    where: {
+      email: req.body.email,
+    },
+  })
+    //TODO bcrypt
+    .then((user) => {
+      if (user) {
+              // send email for authoirsation
+              var transporter = nodemailer.createTransport({
+                host: "s1.ct8.pl",
+                port: 587,
+                auth: {
+                  user: "efaktura@rzi.ct8.pl",
+                  pass: "Klucze2020!3",
+                },
+                //debug: true, // show debug output
+                logger: true, // log information in console
+              });
+              transporter.verify(function (error, success) {
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log("Serwer gotowy na wysłnie emaila");
+                }
+              });
+              var mailOption = {
+                from: "efaktura@rzi.ct8.pl", // sender this is your email here
+                to: `${email}`, // receiver email2
+                subject: "Reset hasła w serwisie efaktura (react)",
+                html: `<h1>Cześć, kliknij na link <h1><br><p> Link resetujący hasło.</p>
+                  <br><a href="http://localhost:3000/reset/?verify=${randomValue}&email=${email}">Kliknij aby zresetować hasło</a>`,
+              };
+              transporter.sendMail(mailOption, function (error, info) {
+                if (error) {
+                  console.log(error);
+                  return;
+                }
+                console.log("Email sent: " + info.response);
+                res.send({
+                  msg:
+                    "Email z linkiem do resetu hasła został wysłany na twoją skrzynkę pocztową",
+                });
+              });
+            })
+
+            .catch((err) => {
+              res.send("error: " + err);
+            });
+        });
+      } else {
+        res.send({ msg: "Użytkownik już istnieje" });
+      }
+    })
+    .catch((err) => {
+      res.send("error: " + err);
+    });
+});
 module.exports = users;

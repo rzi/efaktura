@@ -74,7 +74,8 @@ class Login extends Component {
             <br />
             <p>
               Zapomniałeś hasło? zresetuj
-              <a href={`http://localhost:3000/reset?email=${this.state.email}`}>
+            
+              <a href={`${window.location.origin}/users/reset/?email=${this.state.email}`}>
                 {" "}
                 tutaj
               </a>

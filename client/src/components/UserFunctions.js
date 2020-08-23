@@ -13,7 +13,6 @@ export const register = (newUser) => {
       return response.data;
     });
 };
-
 export const login = (user) => {
   return axios
     .post("/users/login", {
@@ -32,6 +31,7 @@ export const reset = (user) => {
   return axios
     .post("/users/reset", {
       email: user.email,
+      verify:user.verify
     })
     .then((response) => {
       // localStorage.setItem("usertoken", response.data);
@@ -47,7 +47,8 @@ export const newpassword = (user) => {
     .post("/users/newpassword", {
       email: user.email,
       password: user.password,
-      password2:user.password2,
+      password2: user.password2,
+      verify: user.verify,
     })
     .then((response) => {
       // localStorage.setItem("usertoken", response.data);

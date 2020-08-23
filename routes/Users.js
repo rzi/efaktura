@@ -88,6 +88,7 @@ users.post("/register", (req, res) => {
 });
 
 users.post("/login", (req, res) => {
+  console.log("req.baseUrl "+req.baseUrl)
   User.findOne({
     where: {
       email: req.body.email,
@@ -95,6 +96,7 @@ users.post("/login", (req, res) => {
     },
   }).then((user) => {
     console.log("user.active "+user.active)
+    console.log("req.baseUrl "+req.baseUrl)
     if (user.active == "true"){
       if (user && bcrypt.compareSync(req.body.password, user.password)) {
         let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
@@ -111,6 +113,7 @@ users.post("/login", (req, res) => {
 });
 
 users.get("/login", (req, res) => {
+  console.log("req.baseUrl "+req.baseUrl)
 });
 
 users.get("/profile", (req, res) => {
@@ -187,8 +190,11 @@ users.post("/verification", (req, res) => {
 });
 
 users.post("/reset", (req, res) => {
-
+  console.dir("req.originalUrl "+ req.originalUrl)
+  console.log("req.baseUrl "+req.baseUrl)
+  console.log("req.path "+req.path)
   var email = req.body.email;
+  
   var randomValue = Math.floor(Math.random() * 10000000 + 1);
   const today = new Date();
   const userData = {
@@ -203,54 +209,193 @@ users.post("/reset", (req, res) => {
     //TODO bcrypt
     .then((user) => {
       if (user) {
-              // send email for authoirsation
-              var transporter = nodemailer.createTransport({
-                host: "s1.ct8.pl",
-                port: 587,
-                auth: {
-                  user: "efaktura@rzi.ct8.pl",
-                  pass: "Klucze2020!3",
-                },
-                //debug: true, // show debug output
-                logger: true, // log information in console
-              });
-              transporter.verify(function (error, success) {
-                if (error) {
-                  console.log(error);
-                } else {
-                  console.log("Serwer gotowy na wysłnie emaila");
-                }
-              });
-              var mailOption = {
-                from: "efaktura@rzi.ct8.pl", // sender this is your email here
-                to: `${email}`, // receiver email2
-                subject: "Reset hasła w serwisie efaktura (react)",
-                html: `<h1>Cześć, kliknij na link <h1><br><p> Link resetujący hasło.</p>
-                  <br><a href="http://localhost:3000/reset/?verify=${randomValue}&email=${email}">Kliknij aby zresetować hasło</a>`,
-              };
-              transporter.sendMail(mailOption, function (error, info) {
-                if (error) {
+        // send email for authoirsation
+        var transporter = nodemailer.createTransport({
+          host: "s1.ct8.pl",
+          port: 587,
+          auth: {
+            user: "efaktura@rzi.ct8.pl",
+            pass: "Klucze2020!3",
+          },
+          //debug: true, // show debug output
+          logger: true, // log information in console
+        });
+        transporter.verify(function (error, success) {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("Serwer gotowy na wysłnie emaila");
+          }
+        });
+        var mailOption = {
+          from: "efaktura@rzi.ct8.pl", // sender this is your email here
+          to: `${email}`, // receiver email2
+          subject: "Reset hasła w serwisie efaktura (react)",
+          html: `<h1>Cześć, kliknij na link <h1><br><p> Link resetujący hasło.</p>
+                <br><a href="http://localhost:3000/reset/?verify=${randomValue}&email=${email}">Kliknij aby zresetować hasło</a>`,
+        };
+        transporter.sendMail(mailOption, function (error, info) {
+          if (error) {
                   console.log(error);
                   return;
-                }
-                console.log("Email sent: " + info.response);
-                res.send({
-                  msg:
-                    "Email z linkiem do resetu hasła został wysłany na twoją skrzynkę pocztową",
-                });
-              });
-            })
-
-            .catch((err) => {
-              res.send("error: " + err);
-            });
+          }
+          console.log("Email sent: " + info.response);
+          res.send({
+            msg:
+              "Email z linkiem do resetu hasła został wysłany na twoją skrzynkę pocztową",
+          });
         });
-      } else {
-        res.send({ msg: "Użytkownik już istnieje" });
       }
     })
-    .catch((err) => {
+      .catch((err) => {
+        res.send("error: " + err);
+      });
+});
+
+users.get("/reset", (req, res) => {
+  console.log("req.baseUrl "+req.baseUrl)
+  var email = req.query.email;
+  var verify = req.query.verify;
+  console.log("user.verification "+user.verification);
+  console.log("req.query.verify "+req.query.verify);
+  User.findOne({
+    where: {
+      email: email,
+    },
+  })
+    
+    .then((user) => {
+      console.log("user "+ user);
+      console.log("user.verification "+user.verification);
+      console.log("req.query.verify "+req.query.verify);
+      if (user.verification == req.query.verify) {
+        res.redirect ("/newpassword")
+      } else {
+        res.json({"msg": "zły numer weryfikacyjny" });
+      }
+    }).catch((err) => {
       res.send("error: " + err);
     });
+});
+
+users.post("/newpassword", (req, res) => {
+  console.log("req.baseUrl "+req.baseUrl)
+  var email = req.body.email;
+  
+  var randomValue = Math.floor(Math.random() * 10000000 + 1);
+  const today = new Date();
+  const userData = {
+    email: req.body.email,
+  };
+
+  User.findOne({
+    where: {
+      email: req.body.email,
+    },
+  })
+    //TODO bcrypt
+    .then((user) => {
+      if (user) {
+        // send email for authoirsation
+        var transporter = nodemailer.createTransport({
+          host: "s1.ct8.pl",
+          port: 587,
+          auth: {
+            user: "efaktura@rzi.ct8.pl",
+            pass: "Klucze2020!3",
+          },
+          //debug: true, // show debug output
+          logger: true, // log information in console
+        });
+        transporter.verify(function (error, success) {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("Serwer gotowy na wysłnie emaila");
+          }
+        });
+        var mailOption = {
+          from: "efaktura@rzi.ct8.pl", // sender this is your email here
+          to: `${email}`, // receiver email2
+          subject: "Reset hasła w serwisie efaktura (react)",
+          html: `<h1>Cześć, kliknij na link <h1><br><p> Link resetujący hasło.</p>
+                <br><a href="http://localhost:3000/reset/?verify=${randomValue}&email=${email}">Kliknij aby zresetować hasło</a>`,
+        };
+        transporter.sendMail(mailOption, function (error, info) {
+          if (error) {
+                  console.log(error);
+                  return;
+          }
+          console.log("Email sent: " + info.response);
+          res.send({
+            msg:
+              "Email z linkiem do resetu hasła został wysłany na twoją skrzynkę pocztową",
+          });
+        });
+      }
+    })
+      .catch((err) => {
+        res.send("error: " + err);
+      });
+});
+users.post("/changepassword", (req, res) => {
+  console.log("req.baseUrl "+req.baseUrl)
+  var email = req.body.email;
+  
+  var randomValue = Math.floor(Math.random() * 10000000 + 1);
+  const today = new Date();
+  const userData = {
+    email: req.body.email,
+  };
+
+  User.findOne({
+    where: {
+      email: req.body.email,
+    },
+  })
+    //TODO bcrypt
+    .then((user) => {
+      if (user) {
+        // send email for authoirsation
+        var transporter = nodemailer.createTransport({
+          host: "s1.ct8.pl",
+          port: 587,
+          auth: {
+            user: "efaktura@rzi.ct8.pl",
+            pass: "Klucze2020!3",
+          },
+          //debug: true, // show debug output
+          logger: true, // log information in console
+        });
+        transporter.verify(function (error, success) {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("Serwer gotowy na wysłnie emaila");
+          }
+        });
+        var mailOption = {
+          from: "efaktura@rzi.ct8.pl", // sender this is your email here
+          to: `${email}`, // receiver email2
+          subject: "Reset hasła w serwisie efaktura (react)",
+          html: `<h1>Cześć, kliknij na link <h1><br><p> Link resetujący hasło.</p>
+                <br><a href="http://localhost:3000/reset/?verify=${randomValue}&email=${email}">Kliknij aby zresetować hasło</a>`,
+        };
+        transporter.sendMail(mailOption, function (error, info) {
+          if (error) {
+                  console.log(error);
+                  return;
+          }
+          console.log("Email sent: " + info.response);
+          res.send({
+            msg:
+              "Email z linkiem do resetu hasła został wysłany na twoją skrzynkę pocztową",
+          });
+        });
+      }
+    })
+      .catch((err) => {
+        res.send("error: " + err);
+      });
 });
 module.exports = users;

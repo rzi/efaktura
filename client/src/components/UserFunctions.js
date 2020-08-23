@@ -41,3 +41,19 @@ export const reset = (user) => {
       console.log(err);
     });
 };
+
+export const newpassword = (user) => {
+  return axios
+    .post("/users/newpassword", {
+      email: user.email,
+      password: user.password,
+      password2:user.password2,
+    })
+    .then((response) => {
+      // localStorage.setItem("usertoken", response.data);
+      return response.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

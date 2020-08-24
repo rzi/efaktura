@@ -10,7 +10,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5"
   },
-  "proxy": "http://localhost:5000",
+  
   "scripts": {
     "dev": "run-p server start",
     "server": "node-env-run server --exec nodemon",

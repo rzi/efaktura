@@ -59,7 +59,7 @@ users.post("/register", (req, res) => {
                 to: `${email}`, // receiver email2
                 subject: "Weryfikacja konta w serwisie efaktura (react)",
                 html: `<h1>Cześć, kliknij na link <h1><br><p> Link aktywacyjny.</p>
-                  <br><a href="http://localhost:3000/verification/?verify=${randomValue}&email=${email}">Kliknij aby aktywować twoje konto w serwisie efaktura.ct8.pl</a>`,
+                  <br><a href="http://${req.originalUrl}/?verify=${randomValue}&email=${email}">Kliknij aby aktywować twoje konto w serwisie efaktura.ct8.pl</a>`,
               };
               transporter.sendMail(mailOption, function (error, info) {
                 if (error) {
@@ -232,7 +232,7 @@ users.post("/reset", (req, res) => {
           to: `${email}`, // receiver email2
           subject: "Reset hasła w serwisie efaktura (react)",
           html: `<h1>Cześć, kliknij na link <h1><br><p> Link resetujący hasło.</p>
-                <br><a href="http://localhost:3000/reset/?verify=${randomValue}&email=${email}">Kliknij aby zresetować hasło</a>`,
+                <br><a href="http://${req.originalUrl}/?verify=${randomValue}&email=${email}">Kliknij aby zresetować hasło</a>`,
         };
         transporter.sendMail(mailOption, function (error, info) {
           if (error) {
@@ -319,7 +319,7 @@ users.post("/newpassword", (req, res) => {
           to: `${email}`, // receiver email2
           subject: "Reset hasła w serwisie efaktura (react)",
           html: `<h1>Cześć, kliknij na link <h1><br><p> Link resetujący hasło.</p>
-                <br><a href="http://localhost:3000/reset/?verify=${randomValue}&email=${email}">Kliknij aby zresetować hasło</a>`,
+                <br><a href="http://${req.originalUrl}/?verify=${randomValue}&email=${email}">Kliknij aby zresetować hasło</a>`,
         };
         transporter.sendMail(mailOption, function (error, info) {
           if (error) {
@@ -379,7 +379,7 @@ users.post("/changepassword", (req, res) => {
           to: `${email}`, // receiver email2
           subject: "Reset hasła w serwisie efaktura (react)",
           html: `<h1>Cześć, kliknij na link <h1><br><p> Link resetujący hasło.</p>
-                <br><a href="http://localhost:3000/reset/?verify=${randomValue}&email=${email}">Kliknij aby zresetować hasło</a>`,
+                <br><a href="http://${req.originalUrl}/?verify=${randomValue}&email=${email}">Kliknij aby zresetować hasło</a>`,
         };
         transporter.sendMail(mailOption, function (error, info) {
           if (error) {

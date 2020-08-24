@@ -211,6 +211,7 @@ users.post("/reset", (req, res) => {
             console.log("Serwer gotowy na wysłnie emaila");
           }
         });
+        console.log("req.header('host') " + req.header("host"));
         var mailOption = {
           from: "efaktura@rzi.ct8.pl", // sender this is your email here
           to: `${email}`, // receiver email2
@@ -235,6 +236,7 @@ users.post("/reset", (req, res) => {
       res.send("error: " + err);
     });
 });
+users.get("/reset", (req, res) => {});
 users.post("/newpassword", (req, res) => {
   console.log("jestem w newpassword");
   var email = req.body.email;
@@ -274,6 +276,9 @@ users.post("/newpassword", (req, res) => {
         });
       }
     });
+});
+users.get("/reset", (req, res) => {
+  res.send("/reset");
 });
 users.post("/changepassword", (req, res) => {
   console.log("req.baseUrl " + req.baseUrl);

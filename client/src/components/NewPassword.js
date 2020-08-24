@@ -7,6 +7,7 @@ class NewPassword extends Component {
       email: "",
       password: "",
       password2: "",
+      verify: "",
       errors: {},
     };
 
@@ -21,26 +22,35 @@ class NewPassword extends Component {
     e.preventDefault();
 
     const user = {
-      email: this.state.email,
+      email: localStorage.getItem('email'),
       password: this.state.password,
       password2: this.state.password2,
+      verify: localStorage.getItem('verify'),
     };
 
     newpassword(user).then((res) => {
-      document.getElementById("msg").textContent = res.msg;
-      // if (res.msg === "Błędny użytkownik/hasło lub konto nie aktywowane") {
-      //   localStorage.removeItem("usertoken");
-      //   this.props.history.push(`/login`);
-      // } else {
-      //   this.props.history.push(`/profile`);
-      // }
+     document.getElementById("msg").textContent = res.msg;
+      localStorage.clear();
+       if (res.msg === "ok") {
+         localStorage.removeItem("usertoken");
+         this.props.history.push(`/login`);
+       } else {
+        this.props.history.push(`/login`);
+      }
     });
   }
   componentDidMount() {
-    console.log("jestem w did mount " + this.props.match.params.email);
-    this.setState.email = "dddd";
+    console.log("jestem w did mount ");
+    var url = new URL(window.location.href); 
+    var verify = new URLSearchParams(url.search).get("verify");
+    console.log ("verif "+ verify)
 
-    // document.getElementsByName("email").value = "this.props.match.params.email";
+    var email = new URLSearchParams(url.search).get("email");
+    console.log ("email "+email)
+
+    localStorage.setItem('email', email);
+    localStorage.setItem('verify', verify);
+
   }
   render() {
     return (

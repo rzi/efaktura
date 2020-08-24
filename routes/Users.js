@@ -4,9 +4,8 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
-users.use(cors());
 const nodemailer = require("nodemailer");
-
+users.use(cors());
 process.env.SECRET_KEY = "secret";
 
 users.post("/register", (req, res) => {
@@ -86,18 +85,13 @@ users.post("/register", (req, res) => {
       res.send("error: " + err);
     });
 });
-
 users.post("/login", (req, res) => {
-  console.log("req.baseUrl "+req.baseUrl)
   User.findOne({
     where: {
       email: req.body.email,
-      
     },
   }).then((user) => {
-    console.log("user.active "+user.active)
-    console.log("req.baseUrl "+req.baseUrl)
-    if (user.active == "true"){
+    if (user.active == "true") {
       if (user && bcrypt.compareSync(req.body.password, user.password)) {
         let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
           expiresIn: 1440,
@@ -106,16 +100,14 @@ users.post("/login", (req, res) => {
       } else {
         res.send({ msg: "Błędny użytkownik/hasło lub konto nie aktywowane" });
       }
-    } else{
+    } else {
       res.send({ msg: "Błędny użytkownik/hasło lub konto nie aktywowane" });
-    }   
+    }
   });
 });
-
 users.get("/login", (req, res) => {
-  console.log("req.baseUrl "+req.baseUrl)
+  //console.log("req.baseUrl "+req.baseUrl)
 });
-
 users.get("/profile", (req, res) => {
   var decoded = jwt.verify(
     req.headers["authorization"],
@@ -138,9 +130,8 @@ users.get("/profile", (req, res) => {
       res.send("error: " + err);
     });
 });
-
 users.get("/verification", (req, res) => {
-	console.log("req.body.email "+req.body.email)
+  console.log("req.body.email " + req.body.email);
   User.findOne({
     where: {
       email: req.query.email,
@@ -148,8 +139,8 @@ users.get("/verification", (req, res) => {
   })
     //TODO bcrypt
     .then((user) => {
-		console.log("user.verification "+user.verification);
-		console.log("req.query.verify "+req.query.verify);
+      console.log("user.verification " + user.verification);
+      console.log("req.query.verify " + req.query.verify);
       if (user.verification == req.query.verify) {
         User.update({ active: "true" }, { where: { email: req.query.email } })
           .then((result) => {
@@ -160,13 +151,11 @@ users.get("/verification", (req, res) => {
             console.log("Error : ", err);
           });
       } else {
-        res.json({"msg": "zły numer weryfikacyjny" });
+        res.json({ msg: "zły numer weryfikacyjny" });
       }
     });
-//res.json({"msg": "zakończona pomyślnie" });
+  //res.json({"msg": "zakończona pomyślnie" });
 });
-
-
 users.post("/verification", (req, res) => {
   User.findOne({
     where: {
@@ -186,15 +175,10 @@ users.post("/verification", (req, res) => {
           });
       }
     });
-  res.json({"msg": "zakończona pomyślnie"});
+  res.json({ msg: "zakończona pomyślnie" });
 });
-
 users.post("/reset", (req, res) => {
-  console.dir("req.originalUrl "+ req.originalUrl)
-  console.log("req.baseUrl "+req.baseUrl)
-  console.log("req.path "+req.path)
   var email = req.body.email;
-  
   var randomValue = Math.floor(Math.random() * 10000000 + 1);
   const today = new Date();
   const userData = {
@@ -227,17 +211,22 @@ users.post("/reset", (req, res) => {
             console.log("Serwer gotowy na wysłnie emaila");
           }
         });
+        console.log("req.header('host') " + req.header("host"));
         var mailOption = {
           from: "efaktura@rzi.ct8.pl", // sender this is your email here
           to: `${email}`, // receiver email2
           subject: "Reset hasła w serwisie efaktura (react)",
           html: `<h1>Cześć, kliknij na link <h1><br><p> Link resetujący hasło.</p>
+<<<<<<< HEAD
                 <br><a href="http://${req.originalUrl}/?verify=${randomValue}&email=${email}">Kliknij aby zresetować hasło</a>`,
+=======
+                <br><a href="http://localhost:3000/newpassword/?verify=${user.verification}&email=${email}">Kliknij aby zresetować hasło</a>`,
+>>>>>>> 562338e4d030718daa23ea140bfb8bdb82ed920e
         };
         transporter.sendMail(mailOption, function (error, info) {
           if (error) {
-                  console.log(error);
-                  return;
+            console.log(error);
+            return;
           }
           console.log("Email sent: " + info.response);
           res.send({
@@ -247,45 +236,20 @@ users.post("/reset", (req, res) => {
         });
       }
     })
-      .catch((err) => {
-        res.send("error: " + err);
-      });
-});
-
-users.get("/reset", (req, res) => {
-  console.log("req.baseUrl "+req.baseUrl)
-  var email = req.query.email;
-  var verify = req.query.verify;
-  console.log("user.verification "+user.verification);
-  console.log("req.query.verify "+req.query.verify);
-  User.findOne({
-    where: {
-      email: email,
-    },
-  })
-    
-    .then((user) => {
-      console.log("user "+ user);
-      console.log("user.verification "+user.verification);
-      console.log("req.query.verify "+req.query.verify);
-      if (user.verification == req.query.verify) {
-        res.redirect ("/newpassword")
-      } else {
-        res.json({"msg": "zły numer weryfikacyjny" });
-      }
-    }).catch((err) => {
+    .catch((err) => {
       res.send("error: " + err);
     });
 });
-
+users.get("/reset", (req, res) => {});
 users.post("/newpassword", (req, res) => {
-  console.log("req.baseUrl "+req.baseUrl)
+  console.log("jestem w newpassword");
   var email = req.body.email;
-  
+  var verif = req.body.verif;
   var randomValue = Math.floor(Math.random() * 10000000 + 1);
   const today = new Date();
   const userData = {
     email: req.body.email,
+    verif: req.body.verif,
   };
 
   User.findOne({
@@ -295,6 +259,7 @@ users.post("/newpassword", (req, res) => {
   })
     //TODO bcrypt
     .then((user) => {
+<<<<<<< HEAD
       if (user) {
         // send email for authoirsation
         var transporter = nodemailer.createTransport({
@@ -331,17 +296,37 @@ users.post("/newpassword", (req, res) => {
             msg:
               "Email z linkiem do resetu hasła został wysłany na twoją skrzynkę pocztową",
           });
+=======
+      console.log(
+        "porównaie verify " + user.verification + " " + req.body.verify
+      );
+      if (user.verification == req.body.verify) {
+        var passwordHass;
+        bcrypt.hash(req.body.password, 10, (err, hash) => {
+          passwordHass = hash;
+          User.update(
+            { password: passwordHass },
+            { where: { email: req.body.email } }
+          )
+            .then((result) => {
+              console.log("data was Updated");
+              res.json({ msg: "ok" });
+            })
+            .catch((err) => {
+              console.log("Error : ", err);
+            });
+>>>>>>> 562338e4d030718daa23ea140bfb8bdb82ed920e
         });
       }
-    })
-      .catch((err) => {
-        res.send("error: " + err);
-      });
+    });
+});
+users.get("/reset", (req, res) => {
+  res.send("/reset");
 });
 users.post("/changepassword", (req, res) => {
-  console.log("req.baseUrl "+req.baseUrl)
+  console.log("req.baseUrl " + req.baseUrl);
   var email = req.body.email;
-  
+
   var randomValue = Math.floor(Math.random() * 10000000 + 1);
   const today = new Date();
   const userData = {
@@ -383,8 +368,8 @@ users.post("/changepassword", (req, res) => {
         };
         transporter.sendMail(mailOption, function (error, info) {
           if (error) {
-                  console.log(error);
-                  return;
+            console.log(error);
+            return;
           }
           console.log("Email sent: " + info.response);
           res.send({
@@ -394,8 +379,8 @@ users.post("/changepassword", (req, res) => {
         });
       }
     })
-      .catch((err) => {
-        res.send("error: " + err);
-      });
+    .catch((err) => {
+      res.send("error: " + err);
+    });
 });
 module.exports = users;

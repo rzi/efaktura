@@ -5,6 +5,7 @@ class Reset extends Component {
     super();
     this.state = {
       email: "",
+      verify: "",
       errors: {},
     };
 
@@ -33,10 +34,27 @@ class Reset extends Component {
     });
   }
   componentDidMount() {
-    console.log("jestem w did mount " + this.props.match.params.email);
-    this.setState.email = "dddd";
+    var url = new URL(window.location.href); 
+    var verify = new URLSearchParams(url.search).get("verify");
+    console.log ("verif "+ verify)
 
-    // document.getElementsByName("email").value = "this.props.match.params.email";
+    var email = new URLSearchParams(url.search).get("email");
+    console.log ("email "+email)
+
+    this.setState.email = email;
+    this.setState.verify = verify;
+
+    if (verify!=""){
+      const user = {
+        email: this.state.email,
+        verify:this.state.verify,
+      };
+      reset(user).then((res) => {
+        document.getElementById("msg").textContent = res.msg;
+      });
+    }
+    
+   
   }
   render() {
     return (

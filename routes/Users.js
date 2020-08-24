@@ -177,6 +177,9 @@ users.post("/verification", (req, res) => {
     });
   res.json({ msg: "zakończona pomyślnie" });
 });
+users.get("/reset", (req, res) => {
+  // res.send("/reset");
+});
 users.post("/reset", (req, res) => {
   var email = req.body.email;
   var randomValue = Math.floor(Math.random() * 10000000 + 1);
@@ -217,11 +220,7 @@ users.post("/reset", (req, res) => {
           to: `${email}`, // receiver email2
           subject: "Reset hasła w serwisie efaktura (react)",
           html: `<h1>Cześć, kliknij na link <h1><br><p> Link resetujący hasło.</p>
-<<<<<<< HEAD
                 <br><a href="http://${req.originalUrl}/?verify=${randomValue}&email=${email}">Kliknij aby zresetować hasło</a>`,
-=======
-                <br><a href="http://localhost:3000/newpassword/?verify=${user.verification}&email=${email}">Kliknij aby zresetować hasło</a>`,
->>>>>>> 562338e4d030718daa23ea140bfb8bdb82ed920e
         };
         transporter.sendMail(mailOption, function (error, info) {
           if (error) {
@@ -240,7 +239,6 @@ users.post("/reset", (req, res) => {
       res.send("error: " + err);
     });
 });
-users.get("/reset", (req, res) => {});
 users.post("/newpassword", (req, res) => {
   console.log("jestem w newpassword");
   var email = req.body.email;
@@ -259,7 +257,6 @@ users.post("/newpassword", (req, res) => {
   })
     //TODO bcrypt
     .then((user) => {
-<<<<<<< HEAD
       if (user) {
         // send email for authoirsation
         var transporter = nodemailer.createTransport({
@@ -296,33 +293,11 @@ users.post("/newpassword", (req, res) => {
             msg:
               "Email z linkiem do resetu hasła został wysłany na twoją skrzynkę pocztową",
           });
-=======
-      console.log(
-        "porównaie verify " + user.verification + " " + req.body.verify
-      );
-      if (user.verification == req.body.verify) {
-        var passwordHass;
-        bcrypt.hash(req.body.password, 10, (err, hash) => {
-          passwordHass = hash;
-          User.update(
-            { password: passwordHass },
-            { where: { email: req.body.email } }
-          )
-            .then((result) => {
-              console.log("data was Updated");
-              res.json({ msg: "ok" });
-            })
-            .catch((err) => {
-              console.log("Error : ", err);
-            });
->>>>>>> 562338e4d030718daa23ea140bfb8bdb82ed920e
         });
       }
     });
 });
-users.get("/reset", (req, res) => {
-  res.send("/reset");
-});
+
 users.post("/changepassword", (req, res) => {
   console.log("req.baseUrl " + req.baseUrl);
   var email = req.body.email;

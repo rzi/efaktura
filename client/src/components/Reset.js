@@ -44,13 +44,18 @@ class Reset extends Component {
     this.setState.email = email;
     this.setState.verify = verify;
 
-    if (verify!=""){
+    if (verify ==""){
+      //
+    }else{
       const user = {
         email: this.state.email,
         verify:this.state.verify,
+
       };
+      console.log ("email " + this.state.email)
+      console.log ("verify " + this.state.verify)
       reset(user).then((res) => {
-        document.getElementById("msg").textContent = res.msg;
+        //document.getElementById("msg").textContent = res.msg;
       });
     }
     

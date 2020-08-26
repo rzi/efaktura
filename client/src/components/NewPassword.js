@@ -34,7 +34,10 @@ class NewPassword extends Component {
        if (res.msg === "ok") {
          localStorage.removeItem("usertoken");
          this.props.history.push(`/login`);
-       } else {
+        } else if (res.msg === "Hasło zostało zmienione"){
+          document.getElementById("msg").textContent = res.msg;
+          //this.props.history.push(`/login`);
+        } else {
         this.props.history.push(`/login`);
       }
     });

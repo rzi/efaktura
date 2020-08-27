@@ -59,7 +59,7 @@ users.post("/register", (req, res) => {
                 to: `${email}`, // receiver email2
                 subject: "Weryfikacja konta w serwisie efaktura (react)",
                 html: `<h1>Cześć, kliknij na link <h1><br><p> Link aktywacyjny.</p>
-                  <br><a href="http://localhost:3000/verification/?verify=${randomValue}&email=${email}">Kliknij aby aktywować twoje konto w serwisie efaktura.ct8.pl</a>`,
+                  <br><a href="http://localhost:3000/users/verification/?verify=${randomValue}&email=${email}">Kliknij aby aktywować twoje konto w serwisie efaktura.ct8.pl</a>`,
               };
               transporter.sendMail(mailOption, function (error, info) {
                 if (error) {
@@ -132,7 +132,10 @@ users.get("/profile", (req, res) => {
     });
 });
 users.get("/verification", (req, res) => {
-  console.log("req.body.email " + req.body.email);
+  if (req.query.email==undefined){
+    return res.json ({msg: "brak adresu email"})
+  }
+  console.log("req.body.email " + req.query.email);
   User.findOne({
     where: {
       email: req.query.email,
@@ -146,7 +149,7 @@ users.get("/verification", (req, res) => {
         User.update({ active: "true" }, { where: { email: req.query.email } })
           .then((result) => {
             console.log("data was Updated");
-            //res.redirect('/');
+            return res.redirect('/useractivated');
           })
           .catch((err) => {
             console.log("Error : ", err);
@@ -342,5 +345,13 @@ users.post("/changepassword", (req, res) => {
     .catch((err) => {
       res.send("error: " + err);
     });
+});
+users.get("/useractivated", (req, res) => {
+  console.log("jestem w activated get");
+  res.json({msg:"ok"})
+});
+users.post("/useractivated", (req, res) => {
+  console.log("jestem w activated post");
+  res.json({msg:"ok"})
 });
 module.exports = users;

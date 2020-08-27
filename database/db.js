@@ -18,7 +18,9 @@ db.Sequelize = Sequelize
 sequelize
   .authenticate()
   .then(function(err) {
-    console.log('Nawiązane połączenie z bazą danych.');
+    const today = new Date();
+
+    console.log('Nawiązane połączenie z bazą danych. ' +today);
   })
   .catch(function (err) {
     console.log('Brak połączenia z bazą danych:', err);

@@ -11,6 +11,7 @@ import Admin from "./components/Admin.js";
 import Reset from "./components/Reset.js";
 import NewPassword from "./components/NewPassword.js";
 import ChangePassword from "./components/ChangePassword.js";
+import NewPasswordView from "./components/NewPasswordView.js";
 class App extends Component {
   render() {
     return (
@@ -28,6 +29,7 @@ class App extends Component {
             <Route exact path="/reset" component={Reset} />
             <Route exact path="/newpassword" component={NewPassword} />
             <Route exact path="/changepassword" component={ChangePassword} />
+            <Route exact path="/newpasswordview" component={NewPasswordView} />
           </div>
         </div>
       </Router>

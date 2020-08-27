@@ -277,10 +277,11 @@ users.post("/newpassword", (req, res) => {
       console.log("Error : ", err);
       });
   })
-  res.send({
-              msg:
-                "Hasło zostało zmienione",
-            });
+  res.redirect('/newpasswordview');
+  // res.send({
+  //             msg:
+  //               "Hasło zostało zmienione",
+  //           });
 });
 users.post("/changepassword", (req, res) => {
   console.log("req.baseUrl " + req.baseUrl);

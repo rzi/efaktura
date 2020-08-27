@@ -29,18 +29,26 @@ class NewPassword extends Component {
     };
 
     newpassword(user).then((res) => {
-     document.getElementById("msg").textContent = res.msg;
-      localStorage.clear();
-       if (res.msg === "ok") {
-         localStorage.removeItem("usertoken");
-         this.props.history.push(`/login`);
-        } else if (res.msg === "Hasło zostało zmienione"){
-          document.getElementById("msg").textContent = res.msg;
-          //this.props.history.push(`/login`);
-        } else {
-        this.props.history.push(`/login`);
-      }
+      // if(res.msg =='undefined'){
+      //   return
+      // }else {   
+      //   document.getElementById("msg").textContent = res.msg;
+      //     localStorage.clear();
+      //     if (res.msg === "ok") {
+      //       localStorage.removeItem("usertoken");
+      //       this.props.history.push(`/login`);
+      //     } else if (res.msg === "Hasło zostało zmienione"){
+      //         document.getElementById("msg").textContent = res.msg;
+      //         //this.props.history.push(`/login`);
+      //     } else if(res.msg ==undefined){
+      //         return
+      //     } else {
+      //       this.props.history.push(`/login`);
+      //     }
+      // }
+      this.props.history.push(`/newpasswordview`);
     });
+      
   }
   componentDidMount() {
     console.log("jestem w did mount ");

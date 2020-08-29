@@ -5,7 +5,6 @@ class Reset extends Component {
     super();
     this.state = {
       email: "",
-      verify: "",
       errors: {},
     };
 
@@ -25,41 +24,22 @@ class Reset extends Component {
 
     reset(user).then((res) => {
       document.getElementById("msg").textContent = res.msg;
-      // if (res.msg === "Błędny użytkownik/hasło lub konto nie aktywowane") {
-      //   localStorage.removeItem("usertoken");
-      //   this.props.history.push(`/login`);
-      // } else {
-      //   this.props.history.push(`/profile`);
-      // }
     });
   }
   componentDidMount() {
     var url = new URL(window.location.href); 
-    var verify = new URLSearchParams(url.search).get("verify");
-    console.log ("verif "+ verify)
-
     var email = new URLSearchParams(url.search).get("email");
-    console.log ("email "+email)
-
+    console.log ("email "+ email)
     this.setState.email = email;
-    this.setState.verify = verify;
-
-    if (verify ==""){
-      //
-    }else{
+    if (email.length >2){    
       const user = {
         email: this.state.email,
-        verify:this.state.verify,
-
       };
       console.log ("email " + this.state.email)
-      console.log ("verify " + this.state.verify)
       reset(user).then((res) => {
         //document.getElementById("msg").textContent = res.msg;
       });
-    }
-    
-   
+    } 
   }
   render() {
     return (
@@ -79,7 +59,6 @@ class Reset extends Component {
                   onChange={this.onChange}
                 />
               </div>
-
               <button
                 type="submit"
                 className="btn btn-lg btn-primary btn-block"
@@ -101,5 +80,4 @@ class Reset extends Component {
     );
   }
 }
-
 export default Reset;

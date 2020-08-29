@@ -31,17 +31,14 @@ export const reset = (user) => {
   return axios
     .post("/users/reset", {
       email: user.email,
-      verify:user.verify
     })
     .then((response) => {
-      // localStorage.setItem("usertoken", response.data);
       return response.data;
     })
     .catch((err) => {
       console.log(err);
     });
 };
-
 export const newpassword = (user) => {
   return axios
     .post("/users/newpassword", {

@@ -18,7 +18,8 @@ class Login extends Component {
   }
   onSubmit(e) {
     e.preventDefault();
-
+    alert("e.target.name")
+    console.log ("submit")
     const user = {
       email: this.state.email,
       password: this.state.password,
@@ -74,11 +75,14 @@ class Login extends Component {
             <br />
             <p>
               Zapomniałeś hasło? zresetuj
-            
-              <a href={`${window.location.origin}/reset/?email=${this.state.email}`}>
-                {" "}
+              <button
+                type="submit"
+                className="btn btn-link"
+                onSubmit={this.onSubmit}
+              >
                 tutaj
-              </a>
+              </button>
+              
             </p>
             {/* <a href={`https:/${linkVariable}`}>This Is A Dynamic Link</a> */}
             <br />

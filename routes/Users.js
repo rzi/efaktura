@@ -186,7 +186,7 @@ users.get("/reset", (req, res) => {
    res.redirect("/newpassword");
 });
 users.post("/reset", (req, res) => {
-  console.log("jestem w reset posst")
+  console.log("jestem w reset post")
   var email = req.body.email;
   console.log ("email: "+ email)
 
@@ -253,7 +253,7 @@ users.post("/reset", (req, res) => {
 });
 users.get("/newpassword", (req, res) => {
   console.log("jestem w newpassword get");
-  res.json({msg:"ok"})
+  //res.json({msg:"ok"})
 });
 users.post("/newpassword", (req, res) => {
   console.log("jestem w newpassword");

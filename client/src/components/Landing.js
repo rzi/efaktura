@@ -25,6 +25,9 @@ class Landing extends Component {
     if (msg=="newpassword") {
       console.log("jestem w did mount if landing ");
       this.props.history.push(`/newpassword/?email=${email}`);
+    } else if(msg=="touseractivated"){
+      console.log("jestem w did mount if landing ");
+      this.props.history.push(`/useractivated`);
     }
   };
 

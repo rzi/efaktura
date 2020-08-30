@@ -8,23 +8,19 @@ class Login extends Component {
       password: "",
       errors: {},
     };
-
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onSubmit2 = this.onSubmit2.bind(this);
   }
-
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
   onSubmit(e) {
     e.preventDefault();
-    alert("e.target.name")
-    console.log ("submit")
     const user = {
       email: this.state.email,
       password: this.state.password,
     };
-
     login(user).then((res) => {
       document.getElementById("msg").textContent = res.msg;
       if (res.msg === "Błędny użytkownik/hasło lub konto nie aktywowane") {
@@ -34,6 +30,10 @@ class Login extends Component {
         this.props.history.push(`/profile`);
       }
     });
+  }
+  onSubmit2(e) {
+    e.preventDefault();
+    this.props.history.push(`/reset/?email=${this.state.email}`);  
   }
 
   render() {
@@ -72,19 +72,16 @@ class Login extends Component {
                 Zaloguj!
               </button>
             </form>
-            <br />
-            <p>
-              Zapomniałeś hasło? zresetuj
-              <button
-                type="submit"
-                className="btn btn-link"
-                onSubmit={this.onSubmit}
-              >
-                tutaj
-              </button>
-              
-            </p>
-            {/* <a href={`https:/${linkVariable}`}>This Is A Dynamic Link</a> */}
+            <br/>
+            <form  onSubmit={this.onSubmit2}>
+              <label >Zapomniałeś hasła? kliknij </label>
+               <button
+                  type="submit"
+                  className="btn btn-link"                
+                >
+                  tutaj
+               </button>
+              </form>
             <br />
             <h4 id="msg"> </h4>
           </div>
@@ -93,5 +90,4 @@ class Login extends Component {
     );
   }
 }
-
 export default Login;

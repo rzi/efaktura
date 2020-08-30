@@ -51,7 +51,7 @@ class NewPassword extends Component {
       
   }
   componentDidMount() {
-    console.log("jestem w did mount ");
+    console.log("jestem w did mount newpassword");
     var url = new URL(window.location.href); 
     var verify = new URLSearchParams(url.search).get("verify");
     console.log ("verif "+ verify)

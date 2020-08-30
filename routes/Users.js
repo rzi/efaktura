@@ -93,6 +93,8 @@ users.post("/login", (req, res) => {
     },
   }).then((user) => {
     if (user.active == "true") {
+      console.log("req.body.password " + req.body.password)
+      console.log("user.password " + user.password)
       if (user && bcrypt.compareSync(req.body.password, user.password)) {
         let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
           expiresIn: 1440,
@@ -253,10 +255,10 @@ users.post("/reset", (req, res) => {
 });
 users.get("/newpassword", (req, res) => {
   console.log("jestem w newpassword get");
-  //res.json({msg:"ok"})
+  res.redirect(`http://efaktura.ct8.pl/?msg=newpassword&email=${email}`);
 });
 users.post("/newpassword", (req, res) => {
-  console.log("jestem w newpassword");
+  console.log("jestem w newpassword post");
   var email = req.body.email;
   var verify = req.body.verify;
   var password = req.body.password;
@@ -281,10 +283,6 @@ users.post("/newpassword", (req, res) => {
       });
   })
   res.redirect('/newpasswordview');
-  // res.send({
-  //             msg:
-  //               "Hasło zostało zmienione",
-  //           });
 });
 users.post("/changepassword", (req, res) => {
   console.log("req.baseUrl " + req.baseUrl);

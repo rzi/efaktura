@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-
 class UserActivated extends Component {
 
   componentDidMount() {
@@ -22,7 +21,7 @@ class UserActivated extends Component {
         <div className="jumbotron mt-5">
           <div className="col-sm-8 mx-auto">
             <h1 className="text-center">Aktywacja użytkownika</h1>
-            <h2 id="msg" className="text-center"></h2>
+            <h2 id="msg" className="text-center"> </h2>
           </div>
         </div>
       </div>

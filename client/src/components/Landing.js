@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 class Landing extends Component {
   constructor() {
     super();
@@ -13,20 +12,13 @@ class Landing extends Component {
   }
 
   componentDidMount() {
-    console.log("jestem w did mount  landing");
     var url = new URL(window.location.href); 
     var url2 = new URL(window.location); 
-    console.log ("url "+ url)
-    console.log ("url2 "+ url2)
     var msg = new URLSearchParams(url.search).get("msg");
     var email = new URLSearchParams(url2.search).get("email");
-    console.log ("email "+ email)
-    console.log ("msg "+ msg);
-    if (msg=="newpassword") {
-      console.log("jestem w did mount if landing ");
+    if (msg==="newpassword") {
       this.props.history.push(`/newpassword/?email=${email}`);
-    } else if(msg=="touseractivated"){
-      console.log("jestem w did mount if landing ");
+    } else if(msg==="touseractivated"){
       this.props.history.push(`/useractivated`);
     }
   };

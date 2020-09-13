@@ -11,3 +11,8 @@ Click on `Use this template` button to generate a new repository based on this s
 `npm run build` - runs build process for production
 
 `npm run publish` - runs build process and publish the page using `gh-pages` branch
+
+Change on production
+
+1. client\package.json delete proxy
+2. Users.js mailOpton change local host for your hostname\users

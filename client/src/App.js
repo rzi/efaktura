@@ -13,6 +13,7 @@ import NewPassword from "./components/NewPassword.js";
 import ChangePassword from "./components/ChangePassword.js";
 import NewPasswordView from "./components/NewPasswordView.js";
 import UserActivated from "./components/UserActivated.js";
+import UserView from "./components/UserView.js";
 class App extends Component {
   render() {
     return (

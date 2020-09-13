@@ -33,7 +33,11 @@ class Register extends Component {
 
     if (!(newUser.password === newUser.password2)) {
       return (document.getElementById("msg").textContent =
-        "hasła muszą być identyczne");
+        "Hasła muszą być identyczne");
+    }
+    if (!(newUser.first_name && newUser.last_name && newUser.email && newUser.password2 && newUser.password2 )) {
+      return (document.getElementById("msg").textContent =
+        "Wprodadź dane we wszystkie pola");
     }
 
     register(newUser).then((res) => {
@@ -43,8 +47,6 @@ class Register extends Component {
       } else {
         document.getElementById("msg").textContent =
           "Proces rejestracji zakończony. Przejdź do logowania!";
-         
-
       }
     });
   }
@@ -119,12 +121,11 @@ class Register extends Component {
               </button>
             </form>
             <br />
-            <h4 id="msg"> </h4>
+            <h5 className="alert alert-light" role="alert" id="msg"> </h5>
           </div>
         </div>
       </div>
     );
   }
 }
-
 export default Register;

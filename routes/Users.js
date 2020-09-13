@@ -10,7 +10,6 @@ process.env.SECRET_KEY = "secret";
 
 users.post("/register", (req, res) => {
   console.log("${req.hostname} "+ `${req.hostname}`)
-  let emailMSG;
   var email = req.body.email;
   var randomValue = Math.floor(Math.random() * 10000000 + 1);
   const today = new Date();
@@ -56,11 +55,11 @@ users.post("/register", (req, res) => {
               });
               var mailOption = {
                 from: "efaktura@rzi.ct8.pl", // sender this is your email here
-                to: `${email}`, // receiver email2
+                to: `${email}`, 
                 subject: "Weryfikacja konta w serwisie efaktura (react)",
                 html: `<h1>Cześć, kliknij na link <h1><br><p> Link aktywacyjny.</p>
-                  <br><a href="http://localhost:3000/users/verification/?verify=${randomValue}&email=${email}">Kliknij aby aktywować twoje konto w serwisie efaktura.ct8.pl</a>`,
-              };
+                  <br><a href="http://localhost:3000/verification/?verify=${randomValue}&email=${email}">Kliknij aby aktywować twoje konto w serwisie efaktura.ct8.pl</a>`,
+              };  // http://localhost:3000/users should be change for external hosting (on production)
               transporter.sendMail(mailOption, function (error, info) {
                 if (error) {
                   console.log(error);
@@ -69,11 +68,10 @@ users.post("/register", (req, res) => {
                 console.log("Email sent: " + info.response);
                 res.send({
                   msg:
-                    "Email z linkiem do autoryzacji wysłany na twoją skrzynkę pocztową",
+                    "Email z linkiem do autoryzacji wysłany został na twoją skrzynkę pocztową",
                 });
               });
             })
-
             .catch((err) => {
               res.send("error: " + err);
             });

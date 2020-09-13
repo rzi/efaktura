@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
+import  UserView from "./UserView.js";
 
 class Landing extends Component {
   logOut(e) {
@@ -46,6 +47,15 @@ class Landing extends Component {
             Wylogowaine
           </a>
         </li>
+        {/* <li className="nav-item">
+        <div className=" nav-link text-light text-right"> Witaj </div>
+        </li> */}
+        <li className="nav-item">
+        <div className=" nav-link text-light text-right"> Witaj <UserView/></div>
+        </li> 
+
+        
+        
       </ul>
     );
 
@@ -75,10 +85,10 @@ class Landing extends Component {
             </li>
           </ul>
           {localStorage.usertoken ? userLink : loginRegLink}
+          
         </div>
       </nav>
     );
   }
 }
-
 export default withRouter(Landing);

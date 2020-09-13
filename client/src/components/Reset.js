@@ -67,10 +67,10 @@ class Reset extends Component {
               </button>
             </form>
             <br />
-            <p>
+            <h5 className="alert alert-light" role="alert" id="msg">
               Po nacisnięciu reset, link do zmiany hasła zostanie wysłany na
               twoją skrzynkę pocztową
-            </p>
+            </h5>
 
             <br />
             <h4 id="msg"> </h4>

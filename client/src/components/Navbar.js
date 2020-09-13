@@ -28,9 +28,9 @@ class Landing extends Component {
     const userLink = (
       <ul className="navbar-nav">
         <li className="nav-item">
-          <Link to="/profile" className="nav-link">
+          {/* <Link to="/profile" className="nav-link">
             Użytkownik
-          </Link>
+          </Link> */}
         </li>
         <li className="nav-item">
           <Link to="/invoice" className="nav-link">
@@ -46,17 +46,9 @@ class Landing extends Component {
           <a href="" onClick={this.logOut.bind(this)} className="nav-link">
             Wylogowaine
           </a>
-        </li>
-        {/* <li className="nav-item">
-        <div className=" nav-link text-light text-right"> Witaj </div>
-        </li> */}
-        <li className="nav-item">
-        <div className=" nav-link text-light text-right"> Witaj <UserView/></div>
-        </li> 
-
-        
-        
-      </ul>
+        </li>        
+      </ul> 
+      
     );
 
     return (
@@ -85,9 +77,11 @@ class Landing extends Component {
             </li>
           </ul>
           {localStorage.usertoken ? userLink : loginRegLink}
-          
+         
         </div>
+        <div className="text-light text-right"> Witaj <UserView/></div>
       </nav>
+      
     );
   }
 }

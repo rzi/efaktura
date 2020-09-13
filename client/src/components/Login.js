@@ -82,8 +82,8 @@ class Login extends Component {
                   tutaj
                </button>
               </form>
-            <br />
-            <h4 id="msg"> </h4>
+            {/* <br /> */}
+            <h5 className="alert alert-light" role="alert" id="msg"> </h5>
           </div>
         </div>
       </div>

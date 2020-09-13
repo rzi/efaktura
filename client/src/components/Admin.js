@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import jwt_decode from 'jwt-decode'
-
+import Profile from './Profile'
 class Admin extends Component {
   constructor() {
     super()
@@ -27,12 +27,11 @@ class Admin extends Component {
       <div className="container">
         <div className="jumbotron mt-5">
           <div className="col-sm-8 mx-auto">
-            <h1 className="text-center">Moduł Administracja</h1>
+            <h2 className="text-center">Moduł Administracja</h2>
+          {/* </div>
+          <div className="col-sm-8 mx-auto"> */}
+            <Profile/>
           </div>
-         <h2> </h2>
-
-
-
         </div>
       </div>
     )

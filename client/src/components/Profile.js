@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import jwt_decode from 'jwt-decode'
+import Tabs from 'react-bootstrap/Tabs'
+import Tab from 'react-bootstrap/Tab'
 
 class Profile extends Component {
   constructor() {
@@ -20,35 +22,98 @@ class Profile extends Component {
       last_name: decoded.last_name,
       email: decoded.email
     })
-  }
+    
 
-  render() {
+  }
+//   ControlledTabs() {
+//     const [key, setKey] = useState('home');
+    
+//     return (
+//       <Tabs
+//         id="controlled-tab-example"
+//         activeKey={key}
+//         onSelect={(k) => setKey(k)}
+//       >
+//         <Tab eventKey="home" title="Home">    
+//         </Tab>
+//         <Tab eventKey="profile" title="Profile">
+//           {/* <div className="tab-content">
+//             <div className="col-sm-8 mx-auto">
+//               <h className="text-center">Twój profil</h>
+//             </div>
+//             <table className="table col-md-6 mx-auto">
+//               <tbody>
+//                 <tr>
+//                       <td>Imię</td>
+//                       <td>{this.state.first_name}</td>
+//                       <td><button >Edycja</button></td>
+//                       <td><button >Zapisz</button></td>
+//                     </tr>
+//                 <tr>
+//                       <td>Nazwisko</td>
+//                       <td>{this.state.last_name}</td>
+//                       <td><button >Edycja</button></td>
+//                       <td><button >Zapisz</button></td>
+//                     </tr>
+//                 <tr>
+//                       <td>Email</td>
+//                       <td>{this.state.email}</td>
+//                     </tr>
+//               </tbody>
+//             </table>
+//           </div> */}
+//         </Tab>
+//         <Tab eventKey="contact" title="Contact" disabled>          
+//         </Tab>
+//       </Tabs>
+//     );
+//   }
+
+   render(){
     return (
-      <div className="container">
-        <div className="jumbotron mt-5">
-          <div className="col-sm-8 mx-auto">
-            <h1 className="text-center">Twój profil</h1>
-          </div>
-          <table className="table col-md-6 mx-auto">
-            <tbody>
-              <tr>
-                <td>Imię</td>
-                <td>{this.state.first_name}</td>
-              </tr>
-              <tr>
-                <td>Nazwisko</td>
-                <td>{this.state.last_name}</td>
-              </tr>
-              <tr>
-                <td>Email</td>
-                <td>{this.state.email}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div>
+        <Tabs defaultActiveKey="profile" transition={false} id="noanim-tab-example">
+          <Tab eventKey="profile" title="Profil użytkownika">
+             
+             <div className="col-sm-8 mx-auto">
+               <br/>
+                <h3 className="text-center">Twój profil</h3>
+             </div>
+             <div className="tab-content">
+              <table className="table col-md-6 mx-auto">
+                <tbody>
+                  <tr>
+                        <td>Imię</td>
+                        <td>{this.state.first_name}</td>
+                        <td><button >Edycja</button></td>
+                        <td><button >Zapisz</button></td>
+                      </tr>
+                  <tr>
+                        <td>Nazwisko</td>
+                        <td>{this.state.last_name}</td>
+                        <td><button >Edycja</button></td>
+                        <td><button >Zapisz</button></td>
+                      </tr>
+                  <tr>
+                        <td>Email</td>
+                        <td>{this.state.email}</td>
+                      </tr>
+                </tbody>
+              </table>
+             </div>  
+          </Tab>
+          <Tab eventKey="invoice" title="Dane do faktur">
+          <br/>
+          <h3 className="text-center">Twoje danyedo fakturowania</h3>
+          </Tab>
+          <Tab eventKey="settings" title="Ustawiena" >
+          <br/>
+          <h3 className="text-center">Twoje ustawienia </h3>
+          </Tab>
+        </Tabs>
       </div>
-    )
-  }
-}
+    )  
+   } 
 
+}
 export default Profile

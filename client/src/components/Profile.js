@@ -25,49 +25,7 @@ class Profile extends Component {
     
 
   }
-//   ControlledTabs() {
-//     const [key, setKey] = useState('home');
-    
-//     return (
-//       <Tabs
-//         id="controlled-tab-example"
-//         activeKey={key}
-//         onSelect={(k) => setKey(k)}
-//       >
-//         <Tab eventKey="home" title="Home">    
-//         </Tab>
-//         <Tab eventKey="profile" title="Profile">
-//           {/* <div className="tab-content">
-//             <div className="col-sm-8 mx-auto">
-//               <h className="text-center">Twój profil</h>
-//             </div>
-//             <table className="table col-md-6 mx-auto">
-//               <tbody>
-//                 <tr>
-//                       <td>Imię</td>
-//                       <td>{this.state.first_name}</td>
-//                       <td><button >Edycja</button></td>
-//                       <td><button >Zapisz</button></td>
-//                     </tr>
-//                 <tr>
-//                       <td>Nazwisko</td>
-//                       <td>{this.state.last_name}</td>
-//                       <td><button >Edycja</button></td>
-//                       <td><button >Zapisz</button></td>
-//                     </tr>
-//                 <tr>
-//                       <td>Email</td>
-//                       <td>{this.state.email}</td>
-//                     </tr>
-//               </tbody>
-//             </table>
-//           </div> */}
-//         </Tab>
-//         <Tab eventKey="contact" title="Contact" disabled>          
-//         </Tab>
-//       </Tabs>
-//     );
-//   }
+
 
    render(){
     return (

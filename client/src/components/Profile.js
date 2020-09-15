@@ -22,19 +22,15 @@ class Profile extends Component {
       last_name: decoded.last_name,
       email: decoded.email
     })
-    
-
   }
-
 
    render(){
     return (
       <div>
         <Tabs defaultActiveKey="profile" transition={false} id="noanim-tab-example">
-          <Tab eventKey="profile" title="Profil użytkownika">
-             
+          <Tab eventKey="profile" title="Profil użytkownika">             
              <div className="col-sm-8 mx-auto">
-               <br/>
+                <br/>
                 <h3 className="text-center">Twój profil</h3>
              </div>
              <div className="tab-content">
@@ -71,7 +67,6 @@ class Profile extends Component {
         </Tabs>
       </div>
     )  
-   } 
-
+   }
 }
 export default Profile

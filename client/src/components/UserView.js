@@ -25,8 +25,11 @@ class UserView extends Component {
   render() {
     return (
              
-        this.state.first_name
-      
+       <span> 
+          <span> {this.state.first_name} </span> 
+          <span> { }</span>
+          <span> { this.state.last_name}</span> 
+        </span>
     )
   }
 }

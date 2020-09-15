@@ -62,7 +62,7 @@ class Profile extends Component {
           </Tab>
           <Tab eventKey="invoice" title="Dane do faktur">
           <br/>
-          <h3 className="text-center">Twoje danyedo fakturowania</h3>
+          <h3 className="text-center">Twoje dane do fakturowania</h3>
           </Tab>
           <Tab eventKey="settings" title="Ustawiena" >
           <br/>

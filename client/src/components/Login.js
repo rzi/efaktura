@@ -27,7 +27,7 @@ class Login extends Component {
         localStorage.removeItem("usertoken");
         this.props.history.push(`/login`);
       } else {
-        this.props.history.push(`/profile`);
+        this.props.history.push(`/`);
       }
     });
   }

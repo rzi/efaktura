@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import jwt_decode from 'jwt-decode'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
-
+import {Button} from "react-bootstrap";
 class Profile extends Component {
   constructor() {
     super()
@@ -20,7 +20,8 @@ class Profile extends Component {
     this.setState({
       first_name: decoded.first_name,
       last_name: decoded.last_name,
-      email: decoded.email
+      email: decoded.email,
+      btnIsDiasebled : false,
     })
   }
 
@@ -39,14 +40,14 @@ class Profile extends Component {
                   <tr>
                         <td>Imię</td>
                         <td>{this.state.first_name}</td>
-                        <td><button >Edycja</button></td>
-                        <td><button >Zapisz</button></td>
+                        <td><Button className="Button" variant="secondary">Edycja</Button></td>
+                        <td>{ this.state.btnIsDiasebled && <Button className="Button" variant="primary" >Zapisz</Button> }</td>
                       </tr>
                   <tr>
                         <td>Nazwisko</td>
-                        <td>{this.state.last_name}</td>
-                        <td><button >Edycja</button></td>
-                        <td><button >Zapisz</button></td>
+                        <td>{ this.state.btnIsDiasebled && <input type="submit" value={this.state.last_name} onClick={this.onClick} />}</td>
+                        <td> <Button className="Button" variant="secondary">Edycja</Button></td>
+                        <td>{ this.state.btnIsDiasebled && <Button className="Button" variant="primary" >Zapisz</Button> }</td>
                       </tr>
                   <tr>
                         <td>Email</td>
@@ -66,7 +67,7 @@ class Profile extends Component {
           </Tab>
         </Tabs>
       </div>
-    )  
+     )  
    }
 }
 export default Profile

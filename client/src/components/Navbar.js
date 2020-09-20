@@ -1,14 +1,64 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import  UserView from "./UserView.js";
-
+import jwt_decode from "jwt-decode";
 class Landing extends Component {
   logOut(e) {
     e.preventDefault();
     localStorage.removeItem("usertoken");
     this.props.history.push(`/`);
   }
+  componentWillMount() {
+    const token = localStorage.usertoken;
+    console.log(`token ${token}`);
+    console.log(`localStorage.usertoken ${localStorage.usertoken}`);
+     if (token === undefined) {
+      console.log(`will if`);
+      this.setState({
+        first_name: "",
+        last_name: "",
+        email: "",
+      }); 
+      
+      } else {
+        console.log(` will else`);
+        const token = localStorage.usertoken;
+        const decoded = jwt_decode(token);
+        console.log(`decoded ${decoded}`);
+        console.log(`decoded.first_name ${decoded.first_name}`);
+        this.setState({
+          first_name: decoded.first_name,
+          last_name: decoded.last_name,
+          email: decoded.email,
+        });
+      }
+  }
+  componentDidMount() {
+    const token = localStorage.usertoken;
+    console.log(`token ${token}`);
+    console.log(`localStorage.usertoken ${localStorage.usertoken}`);
 
+     if (token === undefined) {
+      console.log(` did if`);
+      this.setState({
+        first_name: "",
+        last_name: "",
+        email: "",
+      }); 
+    
+      } else {
+        console.log(` did else`);
+        const token = localStorage.usertoken;
+        const decoded = jwt_decode(token);
+        console.log(`decoded ${decoded}`);
+        console.log(`decoded.first_name ${decoded.first_name}`);
+        this.setState({
+          first_name: decoded.first_name,
+          last_name: decoded.last_name,
+          email: decoded.email,
+        });
+      }
+  }
   render() {
     const loginRegLink = (
       <ul className="navbar-nav">
@@ -79,7 +129,13 @@ class Landing extends Component {
           {localStorage.usertoken ? userLink : loginRegLink}
          
         </div>
-        <div className="text-light text-right"> Witaj <UserView/></div>
+        <div className="text-light text-right"> Witaj  
+        {localStorage.usertoken ? 
+        <UserView first_name={this.state.first_name} last_name={this.state.last_name}/>: 
+        <UserView first_name="" last_name=""/>
+        }     
+        </div>
+
       </nav>
       
     );

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import UserView from "./UserView.js";
 import jwt_decode from "jwt-decode";
-import {Navbar, Nav} from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 class Landing extends Component {
   constructor() {
     super();
@@ -61,57 +61,7 @@ class Landing extends Component {
     localStorage.removeItem("usertoken");
     this.props.history.push(`/`);
   }
-  // componentWillMount() {
-  //   const token = localStorage.usertoken;
-  //   console.log(`token ${token}`);
-  //   console.log(`localStorage.usertoken ${localStorage.usertoken}`);
-  //    if (token === undefined) {
-  //     console.log(`will if`);
-  //     this.setState({
-  //       first_name: "",
-  //       last_name: "",
-  //       email: "",
-  //     });
-
-  //     } else {
-  //       console.log(` will else`);
-  //       const token = localStorage.usertoken;
-  //       const decoded = jwt_decode(token);
-  //       console.log(`decoded ${decoded}`);
-  //       console.log(`decoded.first_name ${decoded.first_name}`);
-  //       this.setState({
-  //         first_name: decoded.first_name,
-  //         last_name: decoded.last_name,
-  //         email: decoded.email,
-  //       });
-  //     }
-  // }
-  // componentDidMount() {
-  //   const token = localStorage.usertoken;
-  //   console.log(`token ${token}`);
-  //   console.log(`localStorage.usertoken ${localStorage.usertoken}`);
-
-  //    if (token === undefined) {
-  //     console.log(` did if`);
-  //     this.setState({
-  //       first_name: "",
-  //       last_name: "",
-  //       email: "",
-  //     });
-
-  //     } else {
-  //       console.log(` did else`);
-  //       const token = localStorage.usertoken;
-  //       const decoded = jwt_decode(token);
-  //       console.log(`decoded ${decoded}`);
-  //       console.log(`decoded.first_name ${decoded.first_name}`);
-  //       this.setState({
-  //         first_name: decoded.first_name,
-  //         last_name: decoded.last_name,
-  //         email: decoded.email,
-  //       });
-  //     }
-  // }
+  
   render() {
     const loginRegLink = (
       <Navbar.Collapse id="basic-navbar-nav">
@@ -122,7 +72,11 @@ class Landing extends Component {
         <Nav>
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              Użytkownik: <UserView first_name={this.state.first_name} last_name={this.state.last_name}/>
+              Użytkownik:{" "}
+              <UserView
+                first_name={this.state.first_name}
+                last_name={this.state.last_name}
+              />
             </Navbar.Text>
           </Navbar.Collapse>
         </Nav>
@@ -133,12 +87,22 @@ class Landing extends Component {
         <Nav className="mr-auto">
           <Nav.Link href="/invoice">Moduł Fakturowania</Nav.Link>
           <Nav.Link href="/admin">Moduł Administracja</Nav.Link>
-          <Nav.Link href="/" onClick={this.logOut.bind(this)} className="nav-link">Wylogowaine</Nav.Link>
+          <Nav.Link
+            href="/"
+            onClick={this.logOut.bind(this)}
+            className="nav-link"
+          >
+            Wylogowaine
+          </Nav.Link>
         </Nav>
         <Nav>
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              Użytkownik: <UserView   />
+              Użytkownik:{" "}
+              <UserView
+                first_name={this.state.first_name}
+                last_name={this.state.last_name}
+              />
             </Navbar.Text>
           </Navbar.Collapse>
         </Nav>
@@ -146,7 +110,13 @@ class Landing extends Component {
     );
     return (
       <div className="container rounded">
-        <Navbar className=" rounded" bg="dark" variant="dark" expand="lg" sticky="top" >
+        <Navbar
+          className=" rounded"
+          bg="dark"
+          variant="dark"
+          expand="lg"
+          sticky="top"
+        >
           <Navbar.Brand href="/">Strona główna</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           {localStorage.usertoken ? userLink : loginRegLink}

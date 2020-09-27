@@ -71,7 +71,7 @@ class Profile extends Component {
                 <div className="form-group">
                   <label>
                     Email:                  </label>
-                    <input type="text" value={this.state.email} readonly className="form-control-plaintext" />
+                    <input type="text" value={this.state.email} readOnly className="form-control-plaintext" />
 
                 </div>
                 <div className="form-group">

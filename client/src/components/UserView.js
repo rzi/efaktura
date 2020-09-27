@@ -9,9 +9,15 @@ class UserView extends Component {
       last_name: "",
       email: "",
       errors: {},
+      temp: 1,
     };
+    this.forceChange = this.forceChange.bind(this);
   }
-
+  forceChange() {
+    this.setState((prevState) => ({
+      temp: prevState.temp++,
+    }));
+  }
   componentDidMount() {
     var token = localStorage.usertoken;
     console.log(`DID nav token ${token}`);
@@ -61,12 +67,16 @@ class UserView extends Component {
   }
   render() {
     return (
-      <span>
-        <span> {}</span>
-        <span> {this.state.first_name} </span>
-        <span> {}</span>
-        <span> {this.state.last_name}</span>
-      </span>
+      <div>
+        {this.state.temp && (
+          <span>
+            <span> {}</span>
+            <span> {this.state.first_name} </span>
+            <span> {}</span>
+            <span> {this.state.last_name}</span>
+          </span>
+        )}
+      </div>
     );
   }
 }

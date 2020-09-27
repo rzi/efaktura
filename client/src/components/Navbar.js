@@ -36,7 +36,7 @@ class Landing extends Component {
   }
   componentWillMount() {
     var token = localStorage.usertoken;
-    console.log(`WILL nav token ${token}`);
+    console.log("WILL nav token" + token);
     if (localStorage.usertoken === undefined) {
       console.log(`WILL jestem w if `);
       // localStorage.setItem("usertoken", "");
@@ -59,7 +59,8 @@ class Landing extends Component {
   logOut(e) {
     e.preventDefault();
     localStorage.removeItem("usertoken");
-    this.props.history.push(`/`);
+    // this.props.history.push(`/`);
+    window.location.href = "/";
   }
   
   render() {

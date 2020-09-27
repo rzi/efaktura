@@ -9,55 +9,22 @@ class UserView extends Component {
       last_name: "",
       email: "",
       errors: {},
-      temp: 1,
     };
-    this.forceChange = this.forceChange.bind(this);
   }
-  forceChange() {
-    this.setState((prevState) => ({
-      temp: prevState.temp++,
-    }));
-  }
+
   componentDidMount() {
     var token = localStorage.usertoken;
-    console.log(`DID nav token ${token}`);
-
+    console.log(`Token ${token}`);
     this.setState({ first_name: this.props.first_name });
-
     this.setState({ last_name: this.props.last_name });
 
     if (localStorage.usertoken === undefined) {
-      console.log(`DID jestem w if `);
+      console.log(`Token undefined `);
       // localStorage.setItem("usertoken", "");
       return;
     } else {
-      console.log(`DID jestem w else `);
       const token = localStorage.usertoken;
       const decoded = jwt_decode(token);
-
-      console.log(`DID decoded2 ${decoded}`);
-      console.log(`DID decoded.first_name ${decoded.first_name}`);
-      this.setState({
-        first_name: decoded.first_name,
-        last_name: decoded.last_name,
-        email: decoded.email,
-      });
-    }
-  }
-  componentWillMount() {
-    var token = localStorage.usertoken;
-    console.log(`WILL nav token ${token}`);
-    if (localStorage.usertoken === undefined) {
-      console.log(`WILL jestem w if `);
-      // localStorage.setItem("usertoken", "");
-      return;
-    } else {
-      console.log(`WILL jestem w else `);
-      const token = localStorage.usertoken;
-      const decoded = jwt_decode(token);
-
-      console.log(`WILL decoded2 ${decoded}`);
-      console.log(`WILL decoded.first_name ${decoded.first_name}`);
       this.setState({
         first_name: decoded.first_name,
         last_name: decoded.last_name,
@@ -67,16 +34,12 @@ class UserView extends Component {
   }
   render() {
     return (
-      <div>
-        {this.state.temp && (
-          <span>
-            <span> {}</span>
-            <span> {this.state.first_name} </span>
-            <span> {}</span>
-            <span> {this.state.last_name}</span>
-          </span>
-        )}
-      </div>
+      <span>
+        <span> {}</span>
+        <span> {this.state.first_name} </span>
+        <span> {}</span>
+        <span> {this.state.last_name}</span>
+      </span>
     );
   }
 }

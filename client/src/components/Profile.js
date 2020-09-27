@@ -10,8 +10,10 @@ class Profile extends Component {
       first_name: '',
       last_name: '',
       email: '',
+      btnIsDiasebled : true,
       errors: {}
     }
+    this.onChangeFirstName = this.onChangeFirstName.bind(this);
   }
 
   componentDidMount() {
@@ -21,9 +23,14 @@ class Profile extends Component {
       first_name: decoded.first_name,
       last_name: decoded.last_name,
       email: decoded.email,
-      btnIsDiasebled : false,
+      btnIsDiasebled : true,
     })
   }
+  onChangeFirstName(e){
+    this.setState({
+      first_name: e.target.value
+    })
+    }
 
    render(){
     return (
@@ -39,13 +46,13 @@ class Profile extends Component {
                 <tbody>
                   <tr>
                         <td>Imię</td>
-                        <td>{this.state.first_name}</td>
+                        <td><input type="text" value={this.state.first_name} onChange={this.onChangeFirst_name} /></td>
                         <td><Button className="Button" variant="secondary">Edycja</Button></td>
                         <td>{ this.state.btnIsDiasebled && <Button className="Button" variant="primary" >Zapisz</Button> }</td>
                       </tr>
                   <tr>
                         <td>Nazwisko</td>
-                        <td>{ this.state.btnIsDiasebled && <input type="submit" value={this.state.last_name} onClick={this.onClick} />}</td>
+                        <td>{ this.state.btnIsDiasebled && <input type="text" value={this.state.last_name} onClick={this.onClick} />}</td>
                         <td> <Button className="Button" variant="secondary">Edycja</Button></td>
                         <td>{ this.state.btnIsDiasebled && <Button className="Button" variant="primary" >Zapisz</Button> }</td>
                       </tr>

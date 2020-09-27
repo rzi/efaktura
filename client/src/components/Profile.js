@@ -1,80 +1,111 @@
-import React, { Component } from 'react'
-import jwt_decode from 'jwt-decode'
-import Tabs from 'react-bootstrap/Tabs'
-import Tab from 'react-bootstrap/Tab'
-import {Button} from "react-bootstrap";
+import React, { Component } from "react";
+import jwt_decode from "jwt-decode";
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab";
+import { Button } from "react-bootstrap";
+import axios from "axios";
 class Profile extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
-      first_name: '',
-      last_name: '',
-      email: '',
-      btnIsDiasebled : true,
-      errors: {}
-    }
-    this.onChangeFirstName = this.onChangeFirstName.bind(this);
+      first_name: "",
+      last_name: "",
+      email: "",
+      btnIsDiasebled: true,
+      errors: {},
+      value: "",
+    };
+    this.handleChangeFirst_name = this.handleChangeFirst_name.bind(this);
+    this.handleChangeLast_name = this.handleChangeLast_name.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    const token = localStorage.usertoken
-    const decoded = jwt_decode(token)
+    const token = localStorage.usertoken;
+    const decoded = jwt_decode(token);
     this.setState({
       first_name: decoded.first_name,
       last_name: decoded.last_name,
       email: decoded.email,
-      btnIsDiasebled : true,
-    })
+      btnIsDiasebled: true,
+    });
   }
-  onChangeFirstName(e){
-    this.setState({
-      first_name: e.target.value
-    })
-    }
 
-   render(){
+  handleChangeFirst_name(event) {
+    this.setState({ first_name: event.target.value });
+  }
+  handleChangeLast_name(event) {
+    this.setState({ last_name: event.target.value });
+  }
+
+  handleSubmit(event) {
+    axios
+    .put("/users/update", {
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      email: this.state.email,      
+    })
+    .then((response) => {
+      console.log("Dane użytkownika uaktualnione");
+      localStorage.removeItem("usertoken");      
+      window.location.href = "/login"
+    });
+    event.preventDefault();
+  }
+
+  render() {
     return (
       <div>
-        <Tabs defaultActiveKey="profile" transition={false} id="noanim-tab-example">
-          <Tab eventKey="profile" title="Profil użytkownika">             
-             <div className="col-sm-8 mx-auto">
-                <br/>
-                <h3 className="text-center">Twój profil</h3>
-             </div>
-             <div className="tab-content">
-              <table className="table col-md-6 mx-auto">
-                <tbody>
-                  <tr>
-                        <td>Imię</td>
-                        <td><input type="text" value={this.state.first_name} onChange={this.onChangeFirst_name} /></td>
-                        <td><Button className="Button" variant="secondary">Edycja</Button></td>
-                        <td>{ this.state.btnIsDiasebled && <Button className="Button" variant="primary" >Zapisz</Button> }</td>
-                      </tr>
-                  <tr>
-                        <td>Nazwisko</td>
-                        <td>{ this.state.btnIsDiasebled && <input type="text" value={this.state.last_name} onClick={this.onClick} />}</td>
-                        <td> <Button className="Button" variant="secondary">Edycja</Button></td>
-                        <td>{ this.state.btnIsDiasebled && <Button className="Button" variant="primary" >Zapisz</Button> }</td>
-                      </tr>
-                  <tr>
-                        <td>Email</td>
-                        <td>{this.state.email}</td>
-                      </tr>
-                </tbody>
-              </table>
-             </div>  
+        <Tabs
+          defaultActiveKey="profile"
+          transition={false}
+          id="noanim-tab-example"
+        >
+          <Tab eventKey="profile" title="Profil użytkownika">
+            <div className="col-sm-8 mx-auto">
+              <br />
+              <h3 className="text-center">Twój profil</h3>
+            </div>
+            <div className="tab-content">
+              <form onSubmit={this.handleSubmit}>
+                <label>
+                  Email:
+                <br/>  <input type="text" value={this.state.email} readOnly />
+                </label>
+                <br />
+                <label>
+                  Imię:
+                  <br/><input
+                    type="text"
+                    value={this.state.first_name}
+                    onChange={this.handleChangeFirst_name}
+                  />
+                </label>
+                <br />
+                <label>
+                  Nazwisko:
+                  <br/><input
+                    type="text"
+                    value={this.state.last_name}
+                    onChange={this.handleChangeLast_name}
+                  />
+                </label>
+                <br />                
+                <input className="btn btn-secondary" type="submit" value="Uaktualnij" />                
+              </form>
+            </div>
           </Tab>
           <Tab eventKey="invoice" title="Dane do faktur">
-          <br/>
-          <h3 className="text-center">Twoje dane do fakturowania</h3>
+            <br />
+            <h3 className="text-center">Twoje dane do fakturowania</h3>
           </Tab>
-          <Tab eventKey="settings" title="Ustawiena" >
-          <br/>
-          <h3 className="text-center">Twoje ustawienia </h3>
+          <Tab eventKey="settings" title="Ustawiena">
+            <br />
+            <h3 className="text-center">Twoje ustawienia </h3>
           </Tab>
         </Tabs>
       </div>
-     )  
-   }
+    );
+  }
 }
-export default Profile
+export default Profile;

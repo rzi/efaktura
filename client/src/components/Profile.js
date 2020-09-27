@@ -40,16 +40,16 @@ class Profile extends Component {
 
   handleSubmit(event) {
     axios
-    .put("/users/update", {
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
-      email: this.state.email,      
-    })
-    .then((response) => {
-      console.log("Dane użytkownika uaktualnione");
-      localStorage.removeItem("usertoken");      
-      window.location.href = "/login"
-    });
+      .put("/users/update", {
+        first_name: this.state.first_name,
+        last_name: this.state.last_name,
+        email: this.state.email,
+      })
+      .then((response) => {
+        console.log("Dane użytkownika uaktualnione");
+        localStorage.removeItem("usertoken");
+        window.location.href = "/login";
+      });
     event.preventDefault();
   }
 
@@ -68,30 +68,41 @@ class Profile extends Component {
             </div>
             <div className="tab-content">
               <form onSubmit={this.handleSubmit}>
-                <label>
-                  Email:
-                <br/>  <input type="text" value={this.state.email} readOnly />
-                </label>
-                <br />
-                <label>
-                  Imię:
-                  <br/><input
-                    type="text"
-                    value={this.state.first_name}
-                    onChange={this.handleChangeFirst_name}
-                  />
-                </label>
-                <br />
-                <label>
-                  Nazwisko:
-                  <br/><input
-                    type="text"
-                    value={this.state.last_name}
-                    onChange={this.handleChangeLast_name}
-                  />
-                </label>
-                <br />                
-                <input className="btn btn-secondary" type="submit" value="Uaktualnij" />                
+                <div className="form-group">
+                  <label>
+                    Email:                  </label>
+                    <input type="text" value={this.state.email} readonly className="form-control-plaintext" />
+
+                </div>
+                <div className="form-group">
+                  <label>
+                    Imię:
+                    <br />
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={this.state.first_name}
+                      onChange={this.handleChangeFirst_name}
+                    />
+                  </label>
+                </div>
+                <div className="form-group">
+                  <label>
+                    Nazwisko:
+                    <br />
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={this.state.last_name}
+                      onChange={this.handleChangeLast_name}
+                    />
+                  </label>
+                </div>
+                <input
+                  className="btn btn-secondary"
+                  type="submit"
+                  value="Uaktualnij"
+                />
               </form>
             </div>
           </Tab>

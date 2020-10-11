@@ -30,7 +30,7 @@ class Admin extends Component {
             <h2 className="text-center">Moduł Administracja</h2>
           {/* </div>
           <div className="col-sm-8 mx-auto"> */}
-            <Profile/>
+            {/* <Profile/> */}
           </div>
         </div>
       </div>

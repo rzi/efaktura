@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import UserView from "./UserView.js";
 import jwt_decode from "jwt-decode";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav} from "react-bootstrap";
+//import Navbar from 'react-bootstrap/Navbar'
 class Landing extends Component {
   constructor() {
     super();
@@ -25,8 +26,8 @@ class Landing extends Component {
     const loginRegLink = (
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="/login">Logowanie</Nav.Link>
-          <Nav.Link href="/register">Rejestracja</Nav.Link>
+          <Navbar.Link href="/login">Logowanie</Navbar.Link>
+          <Navbar.Link href="/register">Rejestracja</Navbar.Link>
         </Nav>
         <Nav>
           <Navbar.Collapse className="justify-content-end">
@@ -40,6 +41,7 @@ class Landing extends Component {
           </Navbar.Collapse>
         </Nav>
       </Navbar.Collapse>
+      
     );
     const userLink = (
       <Navbar.Collapse id="basic-navbar-nav">
@@ -55,17 +57,19 @@ class Landing extends Component {
           </Nav.Link>
         </Nav>
         <Nav>
-          <Navbar.Collapse className="justify-content-end">
-            <Navbar.Text>
+          <Nav.Collapse className="justify-content-end">
+            <Nav.Text>
               Użytkownik:{" "}
               <UserView
                 first_name={this.state.first_name}
                 last_name={this.state.last_name}
               />
-            </Navbar.Text>
-          </Navbar.Collapse>
+            </Nav.Text>
+          </Nav.Collapse>
         </Nav>
       </Navbar.Collapse>
+     
+
     );
     return (
       <div className="container rounded">

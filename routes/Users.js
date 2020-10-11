@@ -350,4 +350,28 @@ users.post("/useractivated", (req, res) => {
   console.log("jestem w activated post");
   res.json({msg:"ok"})
 });
+users.put("/update", (req, res) => {
+  console.log("jestem w update");
+  User.findOne({
+    where: {
+      email: req.body.email,
+    },
+  })
+    //TODO bcrypt
+    .then((user) => {
+      if (user.active == 'true') {
+        User.update({ first_name: req.body.first_name, last_name: req.body.last_name }, { where: { email: req.body.email } })
+          .then((result) => {
+            console.log("data was Updated");
+            //res.redirect('/');
+          })
+          .catch((err) => {
+            console.log("Error : ", err);
+          });
+      }
+    });
+  res.json({ msg: "zakończona pomyślnie" });
+});
+
+
 module.exports = users;

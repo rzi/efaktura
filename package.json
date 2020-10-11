@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "efaktura",
   "private": true,
+
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

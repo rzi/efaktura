@@ -6,13 +6,14 @@
     "axios": "^0.18.0",
     "bootstrap": "^4.5.2",
     "jwt-decode": "^2.2.0",
+    "material-ui": "^0.20.2",
     "react": "^16.5.2",
     "react-bootstrap": "^1.3.0",
     "react-dom": "^16.5.2",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5"
   },
-
+  "proxy": "http://localhost:5000",
   "scripts": {
     "dev": "run-p server start",
     "server": "node-env-run server --exec nodemon",

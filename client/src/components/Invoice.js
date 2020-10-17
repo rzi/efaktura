@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import jwt_decode from 'jwt-decode'
+import HeaderInvoice from './HeaderInvoice'
 
 class Invoice extends Component {
   constructor() {
@@ -29,10 +30,7 @@ class Invoice extends Component {
           <div className="col-sm-8 mx-auto">
             <h1 className="text-center">Moduł Faktura</h1>
           </div>
-         <h2> </h2>
-
-
-
+        <HeaderInvoice/>
         </div>
       </div>
     )

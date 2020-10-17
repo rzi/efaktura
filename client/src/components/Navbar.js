@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import UserView from "./UserView.js";
 import jwt_decode from "jwt-decode";
-import { Navbar, Nav} from "react-bootstrap";
-//import Navbar from 'react-bootstrap/Navbar'
 class Landing extends Component {
   constructor() {
     super();
@@ -18,72 +16,106 @@ class Landing extends Component {
   logOut(e) {
     e.preventDefault();
     localStorage.removeItem("usertoken");
-    // this.props.history.push(`/`);
-    window.location.href = "/";
   }
-  
   render() {
     const loginRegLink = (
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Navbar.Link href="/login">Logowanie</Navbar.Link>
-          <Navbar.Link href="/register">Rejestracja</Navbar.Link>
-        </Nav>
-        <Nav>
-          <Navbar.Collapse className="justify-content-end">
-            <Navbar.Text>
-              Użytkownik:{" "}
-              <UserView
-                first_name={this.state.first_name}
-                last_name={this.state.last_name}
-              />
-            </Navbar.Text>
-          </Navbar.Collapse>
-        </Nav>
-      </Navbar.Collapse>
-      
+      <ul className="navbar-nav">
+        <li className="nav-item">
+          <Link to="/login" className="nav-link">
+            Logownie
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/register" className="nav-link">
+            Rejestracja
+          </Link>
+        </li>
+      </ul>
     );
-    const userLink = (
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link href="/invoice">Moduł Fakturowania</Nav.Link>
-          <Nav.Link href="/admin">Moduł Administracja</Nav.Link>
-          <Nav.Link
-            href="/"
-            onClick={this.logOut.bind(this)}
-            className="nav-link"
-          >
-            Wylogowaine
-          </Nav.Link>
-        </Nav>
-        <Nav>
-          <Nav.Collapse className="justify-content-end">
-            <Nav.Text>
-              Użytkownik:{" "}
-              <UserView
-                first_name={this.state.first_name}
-                last_name={this.state.last_name}
-              />
-            </Nav.Text>
-          </Nav.Collapse>
-        </Nav>
-      </Navbar.Collapse>
-     
 
+    const userLink = (
+      <ul className="navbar-nav">
+        <li className="nav-item">
+          <Link to="/invoice" className="nav-link">
+            Faktura
+          </Link>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            data-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Administracja
+          </a>
+          <div class="dropdown-menu">
+            <li>
+              <Link to="/profile" className=" dropdown-item ">
+                Użytkownik
+              </Link>
+            </li>
+            <a class="dropdown-item" href="#">
+              Raporty
+            </a>
+            <a class="dropdown-item" href="#">
+              Baza Danych
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">
+              Archiwum
+            </a>
+          </div>
+        </li>
+        <li className="nav-item">
+          <a href="" onClick={this.logOut.bind(this)} className="nav-link">
+            Wylogowaine
+          </a>
+        </li>
+      </ul>
     );
     return (
       <div className="container rounded">
-        <Navbar
-          className=" rounded"
-          bg="dark"
-          variant="dark"
-          expand="lg"
-          sticky="top"
-        >
-          <Navbar.Brand href="/">Strona główna</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          {localStorage.usertoken ? userLink : loginRegLink}
-        </Navbar>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark rounded">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarsExample10"
+            aria-controls="navbarsExample10"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon" />
+          </button>
+
+          <div
+            className="collapse navbar-collapse justify-content-md-center"
+            id="navbarsExample10"
+          >
+            <ul className="navbar-nav ">
+              <li className="nav-item">
+                <Link to="/" className="nav-link navbar-brand">
+                  Strona główna
+                </Link>
+              </li>
+            </ul>
+            {localStorage.usertoken ? userLink : loginRegLink}
+          </div>
+          <div className=" nav navbar-nav navbar-dark navbar-collapse">
+            <ul className="nav navbar-nav navbar-dark navbar-right">
+              <li className="nav-item nav-link">
+                Użytkownik:{" "}
+                <UserView
+                  first_name={this.state.first_name}
+                  last_name={this.state.last_name}
+                />
+              </li>
+            </ul>
+          </div>
+        </nav>
       </div>
     );
   }

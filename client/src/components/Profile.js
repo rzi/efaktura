@@ -55,67 +55,74 @@ class Profile extends Component {
 
   render() {
     return (
-      <div>
-        <Tabs
-          defaultActiveKey="profile"
-          transition={false}
-          id="noanim-tab-example"
-        >
-          <Tab eventKey="profile" title="Profil użytkownika">
-            <div className="col-sm-8 mx-auto">
-              <br />
-              <h3 className="text-center">Twój profil</h3>
-            </div>
-            <div className="tab-content">
-              <form onSubmit={this.handleSubmit}>
-                <div className="form-group">
-                  <label>
-                    Email:                  </label>
-                    <input type="text" value={this.state.email} readOnly className="form-control-plaintext" />
-
+      <div className="container">
+        <div className="jumbotron mt-5">
+          {/* <div className="col-sm-8 mx-auto"> */}
+            <Tabs
+              defaultActiveKey="profile"
+              transition={false}
+              id="noanim-tab-example"
+            >
+              <Tab eventKey="profile" title="Profil użytkownika">
+                <div className="col-sm-8 mx-auto">
+                  <br />
+                  <h3 className="text-center">Twój profil</h3>
                 </div>
-                <div className="form-group">
-                  <label>
-                    Imię:
-                    <br />
+                <div className="tab-content">
+                  <form onSubmit={this.handleSubmit}>
+                    <div className="form-group">
+                      <label>Email: </label>
+                      <input
+                        type="text"
+                        value={this.state.email}
+                        readOnly
+                        className="form-control-plaintext"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>
+                        Imię:
+                        <br />
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={this.state.first_name}
+                          onChange={this.handleChangeFirst_name}
+                        />
+                      </label>
+                    </div>
+                    <div className="form-group">
+                      <label>
+                        Nazwisko:
+                        <br />
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={this.state.last_name}
+                          onChange={this.handleChangeLast_name}
+                        />
+                      </label>
+                    </div>
                     <input
-                      type="text"
-                      className="form-control"
-                      value={this.state.first_name}
-                      onChange={this.handleChangeFirst_name}
+                      className="btn btn-secondary"
+                      type="submit"
+                      value="Uaktualnij"
                     />
-                  </label>
+                  </form>
                 </div>
-                <div className="form-group">
-                  <label>
-                    Nazwisko:
-                    <br />
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={this.state.last_name}
-                      onChange={this.handleChangeLast_name}
-                    />
-                  </label>
-                </div>
-                <input
-                  className="btn btn-secondary"
-                  type="submit"
-                  value="Uaktualnij"
-                />
-              </form>
-            </div>
-          </Tab>
-          <Tab eventKey="invoice" title="Dane do faktur">
-            <br />
-            <h3 className="text-center">Twoje dane do fakturowania</h3>
-          </Tab>
-          <Tab eventKey="settings" title="Ustawiena">
-            <br />
-            <h3 className="text-center">Twoje ustawienia </h3>
-          </Tab>
-        </Tabs>
-      </div>
+              </Tab>
+              <Tab eventKey="invoice" title="Dane do faktur">
+                <br />
+                <h3 className="text-center">Twoje dane do fakturowania</h3>
+              </Tab>
+              <Tab eventKey="settings" title="Ustawiena">
+                <br />
+                <h3 className="text-center">Twoje ustawienia </h3>
+              </Tab>
+            </Tabs>
+          </div>
+        </div>
+      // </div>
     );
   }
 }

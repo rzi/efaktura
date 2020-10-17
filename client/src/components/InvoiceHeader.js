@@ -55,6 +55,22 @@ class InvoiceHeader extends Component {
               <Select options={options1} defaultValue={options1[0]} />
             </Col>
             <Col>
+            <div>Numer Faktury</div>
+            <InputGroup size="sm" className="mb-3">
+                    <InputGroup.Prepend>
+                      <InputGroup.Text id="inputGroup-sizing-sm">
+                      
+                      </InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl
+                      aria-label="Small"
+                      aria-describedby="inputGroup-sizing-sm"
+                    />
+                  </InputGroup>
+            </Col>
+            </Row>
+            <Row>
+            <Col>
               <div>Data wystawienia</div>
               {/* <DatePicker selected={startDate} onChange={date => setStartDate(date)} /> */}
               {/* <form onSubmit={this.onFormSubmit}>

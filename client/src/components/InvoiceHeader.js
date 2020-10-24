@@ -6,8 +6,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Card, Button, CardTitle, CardText } from "reactstrap";
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
+import BootstrapTable from 'react-bootstrap-table-next';
 
 import "bootstrap/dist/css/bootstrap.min.css";
+
 class InvoiceHeader extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +30,23 @@ class InvoiceHeader extends Component {
     e.preventDefault();
     console.log(this.state.startDate);
   }
+  
   render() {
+    const products = [ {
+      id: 1, 
+      name: "nazwa1",
+      price: 2
+    }]
+    const columns = [{
+      dataField: 'id',
+      text: 'Product ID'
+    }, {
+      dataField: 'name',
+      text: 'Product Name'
+    }, {
+      dataField: 'price',
+      text: 'Product Price'
+    }];
     const options = [
       { value: "bez_oznaczen", label: "Bez Oznaczeń" },
       { value: "oryginał", label: "Oryginał" },
@@ -223,66 +241,9 @@ class InvoiceHeader extends Component {
           <Row>
           <Col>
             <Card body outline color="secondary">
-                <CardTitle>Dane nabywcy</CardTitle>
-                <CardText>
-
-                  <InputGroup size="sm" className="mb-3">
-                    <InputGroup.Prepend>
-                      <InputGroup.Text id="inputGroup-sizing-sm">
-                      Nabywca
-                      </InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <FormControl
-                      aria-label="Small"
-                      aria-describedby="inputGroup-sizing-sm"
-                    />
-                  </InputGroup>
-                  <InputGroup size="sm" className="mb-3">
-                    <InputGroup.Prepend>
-                      <InputGroup.Text id="inputGroup-sizing-sm">
-                      NIP
-                      </InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <FormControl
-                      aria-label="Small"
-                      aria-describedby="inputGroup-sizing-sm"
-                    />
-                  </InputGroup>
-                  <InputGroup size="sm" className="mb-3">
-                    <InputGroup.Prepend>
-                      <InputGroup.Text id="inputGroup-sizing-sm">
-                      Ulica
-                      </InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <FormControl
-                      aria-label="Small"
-                      aria-describedby="inputGroup-sizing-sm"
-                    />
-                  </InputGroup>
-                  <InputGroup size="sm" className="mb-3">
-                    <InputGroup.Prepend>
-                      <InputGroup.Text id="inputGroup-sizing-sm">
-                      Miasto
-                      </InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <FormControl
-                      aria-label="Small"
-                      aria-describedby="inputGroup-sizing-sm"
-                    />
-                  </InputGroup>
-                  <InputGroup size="sm" className="mb-3">
-                    <InputGroup.Prepend>
-                      <InputGroup.Text id="inputGroup-sizing-sm">
-                      Kod
-                      </InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <FormControl
-                      aria-label="Small"
-                      aria-describedby="inputGroup-sizing-sm"
-                    />
-                  </InputGroup>
-                </CardText>
-                <Button>Wczytaj z Bazy Danych</Button>
+                <CardTitle>Dane:</CardTitle>
+                <BootstrapTable keyField='id' data={ products } columns={ columns } />
+                <Button>Zapisz fakturę</Button>
               </Card>
             </Col>
           </Row>

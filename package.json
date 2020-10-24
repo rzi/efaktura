@@ -60,6 +60,8 @@
     "websocket-extensions": "^0.1.4"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "axios": "^0.18.1",
     "http-proxy-middleware": "^1.0.5",
     "jwt-decode": "^2.2.0",
@@ -69,6 +71,9 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.5"
+    "react-scripts": "1.1.5",
+    "semantic-ui-button": "^2.3.2",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^2.0.0"
   }
 }

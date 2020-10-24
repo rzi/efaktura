@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import UserView from "./UserView.js";
 import jwt_decode from "jwt-decode";
-
 class Landing extends Component {
   constructor() {
     super();
@@ -17,32 +16,6 @@ class Landing extends Component {
   logOut(e) {
     e.preventDefault();
     localStorage.removeItem("usertoken");
-    window.location.href = "/";
-  }
-  componentDidMount() {
-    const token = localStorage.usertoken;
-    console.log(`token ${token}`);
-    console.log(`localStorage.usertoken ${localStorage.usertoken}`);
-
-    if (token === undefined) {
-      console.log(` did if`);
-      this.setState({
-        first_name: "",
-        last_name: "",
-        email: "",
-      });
-    } else {
-      console.log(` did else`);
-      const token = localStorage.usertoken;
-      const decoded = jwt_decode(token);
-      console.log(`decoded ${decoded}`);
-      console.log(`decoded.first_name ${decoded.first_name}`);
-      this.setState({
-        first_name: decoded.first_name,
-        last_name: decoded.last_name,
-        email: decoded.email,
-      });
-    }
   }
   render() {
     const loginRegLink = (
@@ -84,16 +57,15 @@ class Landing extends Component {
                 Użytkownik
               </Link>
             </li>
-
             <a class="dropdown-item" href="#">
-              Another action
+              Raporty
             </a>
             <a class="dropdown-item" href="#">
-              Something else here
+              Baza Danych
             </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">
-              Separated link
+              Archiwum
             </a>
           </div>
         </li>
